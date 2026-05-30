@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -10,7 +11,8 @@ ENV_PATH = BASE_DIR / ".env"
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=str(ENV_PATH), extra="ignore")
 
-    ai_service_port: int = 8000
+    ai_service_port: int = Field(default=8000, alias="PORT")
+    ai_service_host: str = "0.0.0.0"
     internal_service_key: str = ""
     gateway_url: str = "http://localhost:3001"
     gateway_internal_status_path: str = "/api/documents/internal/{document_id}/ingestion-status"
