@@ -1,0 +1,55 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Dependency directories
+node_modules/
+**/node_modules/
+.venv/
+venv/
+env/
+
+# Build output
+dist/
+build/
+coverage/
+**/dist/
+**/build/
+
+# Python cache / tooling
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# App runtime data and caches
+ai-service/data/gemini_cache/
+*.sqlite
+*.db
+
+# Large local test assets / exports
+data/Test Case PDF/
+data/*.zip
+data/
+mootproblem-summary-tree-response.json
+
+# Misc
+*.local
