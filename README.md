@@ -6,14 +6,9 @@ Ross is a multi-service legal document analysis workspace with:
 - `gateway/`: Node.js API gateway for auth, document orchestration, and RAG routing
 - `ai-service/`: Python service for ingestion, embeddings, summary trees, and answer generation
 
-## Before publishing
+## This is A Production Env
 
 This repository is configured to keep local secrets and generated files out of git:
-
-- `.env` files are ignored
-- `node_modules`, `dist`, Python caches, and runtime caches are ignored
-- large local test exports and zipped assets are ignored
-
 Use the example environment files below when setting up a new machine:
 
 - `webapp/.env.example`
@@ -48,7 +43,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## Recommended publish checklist
+## Recommended checklist
 
 1. Copy each `.env.example` to a real `.env` locally and fill in your secrets.
 2. Verify the frontend `VITE_API_BASE_URL` points to your deployed gateway.
