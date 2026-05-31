@@ -5,7 +5,10 @@ import RossAuth from './RossAuth'
 import './App.css'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+const AI_SERVICE_URL = import.meta.env.VITE_AI_SERVICE_URL || ''
 const TOKEN_STORAGE_KEY = 'ross.gateway.token'
+const SERVER_WAKE_COUNTDOWN_SECONDS = 45
+const SERVER_WAKE_MINIMUM_MS = 3000
 
 const EMPTY_AUTH_FORM = {
   firstName: '',
@@ -43,6 +46,26 @@ const LAYOUT_STRATEGY_OPTIONS = [
 
 function buildUrl(path) {
   return `${API_BASE_URL}${path}`
+}
+
+function wait(ms) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms)
+  })
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
+  const controller = new AbortController()
+  const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs)
+
+  try {
+    return await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    })
+  } finally {
+    window.clearTimeout(timeoutId)
+  }
 }
 
 async function apiRequest(path, options = {}) {
@@ -695,6 +718,12 @@ export default function App() {
   const [authForm, setAuthForm] = useState(EMPTY_AUTH_FORM)
   const [authError, setAuthError] = useState('')
   const [authLoading, setAuthLoading] = useState(false)
+  const [wakeScreen, setWakeScreen] = useState(() => ({
+    visible: !window.localStorage.getItem(TOKEN_STORAGE_KEY),
+    remaining: SERVER_WAKE_COUNTDOWN_SECONDS,
+    gatewayStatus: 'pending',
+    aiStatus: AI_SERVICE_URL ? 'pending' : 'skipped',
+  }))
 
   const [documents, setDocuments] = useState([])
   const [documentsLoading, setDocumentsLoading] = useState(false)
@@ -735,6 +764,7 @@ export default function App() {
 
   const fileInputRef = useRef(null)
   const containerRef = useRef(null)
+  const wakeSequenceStartedRef = useRef(false)
 
   const filteredDocuments = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase()
@@ -784,6 +814,109 @@ export default function App() {
       ['indexed', 'failed'].includes(document.ingestionStatus),
     )
   const summaryPreviewBlocks = summaryMode === 'Brief' ? 4 : 8
+
+  useEffect(() => {
+    if (token || user || wakeSequenceStartedRef.current || !wakeScreen.visible) {
+      return
+    }
+
+    wakeSequenceStartedRef.current = true
+    let cancelled = false
+    const startedAt = Date.now()
+
+    const countdownId = window.setInterval(() => {
+      setWakeScreen((current) => {
+        if (!current.visible) {
+          return current
+        }
+
+        if (current.remaining <= 1) {
+          window.clearInterval(countdownId)
+          return {
+            ...current,
+            remaining: 0,
+            visible: false,
+          }
+        }
+
+        return {
+          ...current,
+          remaining: current.remaining - 1,
+        }
+      })
+    }, 1000)
+
+    async function pingGateway() {
+      while (!cancelled) {
+        try {
+          const response = await fetchWithTimeout(buildUrl('/health'))
+          if (!response.ok) {
+            throw new Error('Gateway wake-up ping failed.')
+          }
+
+          if (!cancelled) {
+            setWakeScreen((current) => ({ ...current, gatewayStatus: 'ready' }))
+          }
+          return true
+        } catch {
+          if (!cancelled) {
+            setWakeScreen((current) => ({ ...current, gatewayStatus: 'pending' }))
+          }
+          await wait(4000)
+        }
+      }
+
+      return false
+    }
+
+    async function pingAiService() {
+      if (!AI_SERVICE_URL) {
+        return true
+      }
+
+      while (!cancelled) {
+        try {
+          await fetchWithTimeout(`${AI_SERVICE_URL}/health`, { mode: 'no-cors' })
+
+          if (!cancelled) {
+            setWakeScreen((current) => ({ ...current, aiStatus: 'ready' }))
+          }
+          return true
+        } catch {
+          if (!cancelled) {
+            setWakeScreen((current) => ({ ...current, aiStatus: 'pending' }))
+          }
+          await wait(4000)
+        }
+      }
+
+      return false
+    }
+
+    async function completeWakeSequence() {
+      await Promise.allSettled([pingGateway(), pingAiService()])
+
+      const minimumRemaining = SERVER_WAKE_MINIMUM_MS - (Date.now() - startedAt)
+      if (minimumRemaining > 0) {
+        await wait(minimumRemaining)
+      }
+
+      if (!cancelled) {
+        setWakeScreen((current) => ({
+          ...current,
+          visible: false,
+        }))
+        window.clearInterval(countdownId)
+      }
+    }
+
+    completeWakeSequence()
+
+    return () => {
+      cancelled = true
+      window.clearInterval(countdownId)
+    }
+  }, [token, user, wakeScreen.visible])
 
   useEffect(() => {
     if (!token) {
@@ -1292,6 +1425,7 @@ export default function App() {
         error={authError}
         loading={authLoading}
         restoringSession={restoringSession}
+        wakeScreen={token ? null : wakeScreen}
         onModeChange={setAuthMode}
         onFieldChange={(field, value) =>
           setAuthForm((current) => ({

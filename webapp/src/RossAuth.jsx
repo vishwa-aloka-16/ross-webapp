@@ -342,6 +342,169 @@ function LeftPanel() {
   )
 }
 
+function ServiceStatusPill({ label, status }) {
+  const palette =
+    status === 'ready'
+      ? {
+          background: 'rgba(29, 158, 117, 0.12)',
+          color: '#1D9E75',
+          dot: '#1D9E75',
+        }
+      : status === 'skipped'
+        ? {
+            background: 'rgba(95, 94, 90, 0.08)',
+            color: GRAY[500],
+            dot: GRAY[400],
+          }
+        : {
+            background: 'rgba(239, 159, 39, 0.12)',
+            color: '#B26E12',
+            dot: '#EF9F27',
+          }
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '12px',
+        borderRadius: '12px',
+        background: '#fff',
+        border: `1px solid ${GRAY[100]}`,
+        padding: '12px 14px',
+      }}
+    >
+      <span style={{ fontSize: '13px', color: GRAY[800], fontWeight: 500 }}>{label}</span>
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '7px',
+          borderRadius: '999px',
+          background: palette.background,
+          color: palette.color,
+          fontSize: '11px',
+          fontWeight: 600,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+          padding: '6px 10px',
+        }}
+      >
+        <span
+          style={{
+            width: '7px',
+            height: '7px',
+            borderRadius: '50%',
+            background: palette.dot,
+            display: 'inline-flex',
+          }}
+        />
+        {status === 'ready' ? 'Ready' : status === 'skipped' ? 'Skipped' : 'Waking'}
+      </span>
+    </div>
+  )
+}
+
+function WakePanel({ wakeScreen }) {
+  return (
+    <div
+      style={{
+        flex: 1,
+        padding: '48px 52px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        maxWidth: '420px',
+      }}
+    >
+      <div
+        style={{
+          width: '56px',
+          height: '56px',
+          borderRadius: '18px',
+          background: GRAY[900],
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '22px',
+          boxShadow: '0 16px 28px rgba(44, 44, 42, 0.14)',
+        }}
+      >
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#fff"
+          strokeWidth="1.8"
+          style={{ animation: 'ross-auth-spin 1s linear infinite' }}
+        >
+          <circle cx="12" cy="12" r="9" strokeOpacity="0.2" />
+          <path d="M12 3a9 9 0 0 1 9 9" />
+        </svg>
+      </div>
+
+      <p style={{ fontSize: '24px', fontWeight: 500, color: GRAY[900], margin: '0 0 8px' }}>
+        Waking free-tier servers
+      </p>
+      <p style={{ fontSize: '13px', color: GRAY[500], margin: '0 0 28px', lineHeight: 1.75 }}>
+        Ross is pinging the gateway and AI service before sign-in so the first authenticated action
+        feels smoother on Render&apos;s free plan.
+      </p>
+
+      <div
+        style={{
+          borderRadius: '18px',
+          background: GRAY[50],
+          border: `1px solid ${GRAY[100]}`,
+          padding: '18px',
+          marginBottom: '18px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px' }}>
+          <span style={{ fontSize: '12px', color: GRAY[500], letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Estimated wake window
+          </span>
+          <span style={{ fontSize: '28px', fontWeight: 700, color: GRAY[900] }}>
+            {wakeScreen.remaining}s
+          </span>
+        </div>
+
+        <div
+          style={{
+            marginTop: '14px',
+            height: '8px',
+            width: '100%',
+            borderRadius: '999px',
+            overflow: 'hidden',
+            background: '#E6E2D9',
+          }}
+        >
+          <div
+            style={{
+              width: `${((45 - wakeScreen.remaining) / 45) * 100}%`,
+              height: '100%',
+              borderRadius: '999px',
+              background: `linear-gradient(90deg, ${GRAY[700]}, ${GRAY[900]})`,
+              transition: 'width 0.9s linear',
+            }}
+          />
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gap: '10px' }}>
+        <ServiceStatusPill label="Gateway service" status={wakeScreen.gatewayStatus} />
+        <ServiceStatusPill label="AI service" status={wakeScreen.aiStatus} />
+      </div>
+
+      <p style={{ margin: '18px 0 0', fontSize: '12px', color: GRAY[400], lineHeight: 1.7 }}>
+        The login form will appear automatically once the warm-up completes or the countdown ends.
+      </p>
+    </div>
+  )
+}
+
 function LoginForm({
   form,
   error,
@@ -698,6 +861,7 @@ export default function RossAuth(props) {
     error,
     loading,
     restoringSession,
+    wakeScreen,
     onModeChange,
     onFieldChange,
     onSubmit,
@@ -755,7 +919,9 @@ export default function RossAuth(props) {
             <LeftPanel />
 
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', overflowY: 'auto' }}>
-              {mode === 'login' ? (
+              {wakeScreen?.visible ? (
+                <WakePanel wakeScreen={wakeScreen} />
+              ) : mode === 'login' ? (
                 <LoginForm
                   form={form}
                   error={error}
