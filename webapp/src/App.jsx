@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import RossAuth from './RossAuth'
+import RossLandingPage from './RossLandingPage'
 import './App.css'
 import { fetchCurrentUser, login, register } from './api/authApi'
 import {
@@ -113,6 +114,7 @@ function findNodeById(node, nodeId) {
 }
 
 export default function App() {
+  const [entryScreen, setEntryScreen] = useState('landing')
   const [authMode, setAuthMode] = useState('login')
   const [authForm, setAuthForm] = useState(EMPTY_AUTH_FORM)
   const [authLoading, setAuthLoading] = useState(false)
@@ -590,6 +592,21 @@ export default function App() {
   }
 
   if (!token || !user) {
+    if (entryScreen === 'landing') {
+      return (
+        <RossLandingPage
+          onSignIn={() => {
+            setAuthMode('login')
+            setEntryScreen('auth')
+          }}
+          onGetStarted={() => {
+            setAuthMode('register')
+            setEntryScreen('auth')
+          }}
+        />
+      )
+    }
+
     return (
       <RossAuth
         mode={authMode}
@@ -598,7 +615,11 @@ export default function App() {
         loading={authLoading}
         restoringSession={restoringSession}
         wakeScreen={{ visible: false }}
-        onModeChange={setAuthMode}
+        onBackToLanding={() => setEntryScreen('landing')}
+        onModeChange={(mode) => {
+          setAuthMode(mode)
+          setEntryScreen('auth')
+        }}
         onFieldChange={(field, value) => setAuthForm((current) => ({ ...current, [field]: value }))}
         onSubmit={handleAuthSubmit}
       />

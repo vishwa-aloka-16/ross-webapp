@@ -659,6 +659,1208 @@
   border: 0;
 }
 
+.ross-landing {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(216, 211, 198, 0.45), transparent 22%),
+    linear-gradient(180deg, #fafaf8, #f2eee6);
+  color: #1a1a1a;
+}
+
+.ross-liquid-page {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 12% 2%, rgba(255, 255, 255, 0.12), transparent 28rem),
+    radial-gradient(circle at 92% 18%, rgba(126, 149, 170, 0.14), transparent 24rem),
+    linear-gradient(180deg, #0f1115 0%, #15161a 48%, #0d0e11 100%);
+  color: #e7e9ec;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+}
+
+.ross-liquid-nav,
+.ross-load-in,
+.ross-text-load,
+[data-ross-reveal] {
+  opacity: 0;
+}
+
+.ross-load-in {
+  transform: translateY(22px) scale(0.985);
+  filter: blur(14px);
+}
+
+.ross-load-in.is-second {
+  animation-delay: 0.22s;
+}
+
+.ross-load-in.is-third {
+  animation-delay: 0.36s;
+}
+
+.ross-load-in.is-fourth {
+  animation-delay: 0.5s;
+}
+
+.ross-liquid-page.is-ready .ross-liquid-nav {
+  animation: rossNavDrop 0.68s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ross-liquid-page.is-ready .ross-load-in {
+  animation-name: rossLoadFloat;
+  animation-duration: 0.86s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+.ross-text-load {
+  display: inline-block;
+  transform: translateY(24px);
+  clip-path: inset(0 100% 0 0);
+  filter: blur(12px);
+}
+
+.ross-text-load.is-delayed {
+  animation-delay: 0.14s;
+}
+
+.ross-liquid-page.is-ready .ross-text-load {
+  animation-name: rossTextLoad;
+  animation-duration: 1.05s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+[data-ross-reveal] {
+  transform: translateY(30px) scale(0.985);
+  filter: blur(14px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s ease;
+  transition-delay: var(--ross-reveal-delay, 0ms);
+}
+
+[data-ross-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.ross-liquid-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(180deg, #000, transparent 72%);
+}
+
+.ross-liquid-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 17, 21, 0.58);
+  backdrop-filter: blur(22px) saturate(160%);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.ross-liquid-nav.is-scrolled {
+  border-color: rgba(255, 255, 255, 0.13);
+  background: rgba(15, 17, 21, 0.82);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.24);
+}
+
+.ross-liquid-nav-inner {
+  width: min(1280px, calc(100% - 5rem));
+  height: 4.5rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.ross-liquid-brand {
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.ross-liquid-links,
+.ross-liquid-actions,
+.ross-liquid-hero-actions,
+.ross-liquid-final-actions,
+.ross-liquid-trust-row,
+.ross-liquid-footer nav {
+  display: flex;
+  align-items: center;
+}
+
+.ross-liquid-links {
+  gap: 2rem;
+}
+
+.ross-liquid-links a,
+.ross-liquid-footer a {
+  color: rgba(231, 233, 236, 0.66);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ross-liquid-links a:hover,
+.ross-liquid-footer a:hover {
+  color: #fff;
+}
+
+.ross-liquid-actions,
+.ross-liquid-hero-actions,
+.ross-liquid-final-actions {
+  gap: 0.8rem;
+}
+
+.ross-liquid-link-action,
+.ross-liquid-solid-action,
+.ross-liquid-glass-action {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ross-liquid-link-action {
+  background: transparent;
+  color: rgba(231, 233, 236, 0.72);
+}
+
+.ross-liquid-solid-action,
+.ross-liquid-glass-action {
+  min-height: 2.55rem;
+  border-radius: 999px;
+  padding: 0.65rem 1.25rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.ross-liquid-solid-action {
+  background: rgba(255, 255, 255, 0.94);
+  color: #191b1f;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 14px 32px rgba(255, 255, 255, 0.08);
+}
+
+.ross-liquid-glass-action {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  backdrop-filter: blur(18px) saturate(150%);
+}
+
+.ross-liquid-solid-action:hover,
+.ross-liquid-glass-action:hover {
+  transform: translateY(-1px);
+}
+
+.ross-liquid-solid-action.is-large,
+.ross-liquid-glass-action.is-large {
+  min-height: 3.25rem;
+  padding-inline: 1.9rem;
+}
+
+.ross-liquid-main {
+  padding-top: 8rem;
+}
+
+.ross-liquid-hero {
+  width: min(1280px, calc(100% - 5rem));
+  margin: 0 auto 9rem;
+  text-align: center;
+}
+
+.ross-liquid-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.45rem 0.9rem;
+  color: rgba(231, 233, 236, 0.72);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+
+.ross-liquid-hero h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.4rem, 7vw, 6.6rem);
+  line-height: 1.02;
+  font-weight: 650;
+}
+
+.ross-liquid-hero p {
+  max-width: 44rem;
+  margin: 1.6rem auto 2.5rem;
+  color: rgba(231, 233, 236, 0.66);
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+.ross-liquid-hero-actions {
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.ross-liquid-app-frame,
+.ross-liquid-feature-card,
+.ross-liquid-final {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.025));
+  backdrop-filter: blur(28px) saturate(165%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 30px 90px rgba(0, 0, 0, 0.35);
+}
+
+.ross-liquid-app-frame {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  border-radius: 1.5rem;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.ross-liquid-app-frame::before,
+.ross-liquid-final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 35%);
+}
+
+.ross-liquid-app-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0.8rem;
+  z-index: 2;
+  border-radius: 1rem;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 12%,
+    rgba(255, 255, 255, 0.08) 38%,
+    rgba(255, 255, 255, 0.34) 48%,
+    rgba(255, 255, 255, 0.08) 58%,
+    transparent 86%
+  );
+  transform: translateX(-130%);
+}
+
+.ross-liquid-page.is-ready .ross-liquid-app-frame::after {
+  animation: rossPreviewScan 1.35s 0.74s ease-out forwards;
+}
+
+.ross-liquid-app-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+}
+
+@keyframes rossNavDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rossLoadFloat {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+    filter: blur(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes rossTextLoad {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    clip-path: inset(0 100% 0 0);
+    filter: blur(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes rossPreviewScan {
+  0% {
+    opacity: 0;
+    transform: translateX(-130%);
+  }
+
+  18%,
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(130%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ross-liquid-nav,
+  .ross-load-in,
+  .ross-text-load,
+  [data-ross-reveal] {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    filter: none;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .ross-liquid-app-frame::after {
+    display: none;
+  }
+}
+
+.ross-liquid-app-sidebar,
+.ross-liquid-app-insights {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(13, 14, 17, 0.52);
+  padding: 1.25rem;
+}
+
+.ross-liquid-app-sidebar {
+  border-radius: 1rem 0 0 1rem;
+}
+
+.ross-liquid-app-logo {
+  margin-bottom: 2rem;
+  color: #fff;
+  font-weight: 650;
+  font-size: 1.4rem;
+}
+
+.ross-liquid-skeleton,
+.ross-liquid-doc-line,
+.ross-liquid-risk-card div,
+.ross-liquid-match-card div {
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ross-liquid-skeleton {
+  width: 74%;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ross-liquid-skeleton.is-wide {
+  width: 100%;
+}
+
+.ross-liquid-side-card {
+  margin-top: 2.8rem;
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.045);
+  padding: 1rem;
+  color: rgba(231, 233, 236, 0.65);
+}
+
+.ross-liquid-side-card span {
+  display: block;
+  width: 45%;
+  height: 0.35rem;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.ross-liquid-app-document {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f4;
+}
+
+.ross-liquid-document-bar {
+  height: 3.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0 1.4rem;
+  color: rgba(15, 17, 21, 0.48);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.ross-liquid-document-bar div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ross-liquid-document-bar i {
+  width: 2.9rem;
+  height: 1.45rem;
+  border-radius: 0.45rem;
+  background: rgba(15, 17, 21, 0.06);
+}
+
+.ross-liquid-document-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 4rem 4.5rem;
+  background: #fff;
+}
+
+.ross-liquid-doc-line {
+  height: 0.9rem;
+  background: rgba(15, 17, 21, 0.07);
+}
+
+.ross-liquid-doc-line.is-title {
+  width: 72%;
+  height: 2rem;
+  background: rgba(15, 17, 21, 0.12);
+}
+
+.ross-liquid-doc-line.is-short {
+  width: 62%;
+}
+
+.ross-liquid-doc-line.is-medium {
+  width: 82%;
+}
+
+.ross-liquid-doc-line.is-heading {
+  width: 48%;
+  height: 1.8rem;
+  margin-top: 1.4rem;
+  background: rgba(15, 17, 21, 0.11);
+}
+
+.ross-liquid-app-insights {
+  border-radius: 0 1rem 1rem 0;
+}
+
+.ross-liquid-app-insights h2 {
+  margin: 0 0 1.4rem;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 550;
+}
+
+.ross-liquid-risk-card,
+.ross-liquid-match-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.055);
+  padding: 1rem;
+}
+
+.ross-liquid-risk-card {
+  margin-bottom: 1rem;
+}
+
+.ross-liquid-risk-card span,
+.ross-liquid-match-card span {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.ross-liquid-risk-card div {
+  height: 3rem;
+}
+
+.ross-liquid-match-card div {
+  height: 2rem;
+}
+
+.ross-liquid-feature-grid {
+  width: min(1280px, calc(100% - 5rem));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 0 auto 9rem;
+}
+
+.ross-liquid-feature-card {
+  border-radius: 1.35rem;
+  padding: 2.3rem;
+  transition:
+    transform 0.24s ease,
+    border-color 0.24s ease,
+    background 0.24s ease;
+}
+
+.ross-liquid-feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.26);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04));
+}
+
+.ross-liquid-feature-icon {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.ross-liquid-feature-card h3 {
+  margin: 0 0 0.85rem;
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 550;
+}
+
+.ross-liquid-feature-card p {
+  margin: 0;
+  color: rgba(231, 233, 236, 0.64);
+  line-height: 1.75;
+}
+
+.ross-liquid-final {
+  position: relative;
+  overflow: hidden;
+  width: min(1280px, calc(100% - 5rem));
+  margin: 0 auto 8rem;
+  border-radius: 2rem;
+  text-align: center;
+}
+
+.ross-liquid-final-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 5.6rem 2rem;
+}
+
+.ross-liquid-final h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.ross-liquid-final p {
+  margin: 1.4rem auto 2.6rem;
+  color: rgba(231, 233, 236, 0.64);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.ross-liquid-final-actions {
+  justify-content: center;
+}
+
+.ross-liquid-trust-row {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-top: 2.8rem;
+}
+
+.ross-liquid-trust-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(231, 233, 236, 0.62);
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ross-liquid-trust-row .material-symbols-outlined {
+  font-size: 1rem;
+}
+
+.ross-liquid-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(7, 8, 10, 0.62);
+  padding: 2.5rem max(2.5rem, calc((100% - 1280px) / 2));
+}
+
+.ross-liquid-footer strong {
+  display: block;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 650;
+}
+
+.ross-liquid-footer p {
+  margin: 0.4rem 0 0;
+  color: rgba(231, 233, 236, 0.5);
+}
+
+.ross-liquid-footer nav {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1.4rem;
+}
+
+@media (max-width: 1040px) {
+  .ross-liquid-app-frame {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ross-liquid-app-sidebar,
+  .ross-liquid-app-insights {
+    display: none;
+  }
+
+  .ross-liquid-app-document {
+    border-radius: 1rem;
+  }
+
+  .ross-liquid-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .ross-liquid-nav-inner,
+  .ross-liquid-hero,
+  .ross-liquid-feature-grid,
+  .ross-liquid-final {
+    width: min(100% - 2rem, 1280px);
+  }
+
+  .ross-liquid-nav-inner {
+    height: auto;
+    min-height: 4.5rem;
+    flex-wrap: wrap;
+    padding: 0.8rem 0;
+  }
+
+  .ross-liquid-links {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    gap: 1rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .ross-liquid-actions {
+    margin-left: auto;
+  }
+
+  .ross-liquid-main {
+    padding-top: 9rem;
+  }
+
+  .ross-liquid-hero {
+    margin-bottom: 5rem;
+  }
+
+  .ross-liquid-hero h1 {
+    font-size: 3rem;
+  }
+
+  .ross-liquid-document-page {
+    padding: 2rem 1.3rem;
+  }
+
+  .ross-liquid-final-inner {
+    padding: 4rem 1rem;
+  }
+
+  .ross-liquid-final-actions,
+  .ross-liquid-hero-actions {
+    flex-direction: column;
+  }
+
+  .ross-liquid-solid-action.is-large,
+  .ross-liquid-glass-action.is-large {
+    width: 100%;
+  }
+
+  .ross-liquid-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-inline: 1rem;
+  }
+
+  .ross-liquid-footer nav {
+    justify-content: flex-start;
+  }
+}
+
+.ross-landing-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+  background: rgba(250, 250, 248, 0.86);
+  backdrop-filter: blur(14px);
+}
+
+.ross-landing-brand {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.ross-landing-links,
+.ross-landing-actions,
+.ross-landing-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ross-landing-links a,
+.ross-landing-link-button,
+.ross-landing-secondary {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: #57534e;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ross-landing-primary,
+.ross-landing-secondary {
+  border-radius: 0.8rem;
+  padding: 0.85rem 1.2rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.ross-landing-primary {
+  border: 1px solid #1f1f1d;
+  background: #1f1f1d;
+  color: #fff;
+  cursor: pointer;
+}
+
+.ross-landing-primary.is-light {
+  background: #fff;
+  color: #1f1f1d;
+  border-color: #fff;
+}
+
+.ross-landing-secondary {
+  border: 1px solid rgba(26, 26, 26, 0.14);
+  color: #1f1f1d;
+}
+
+.ross-landing-hero,
+.ross-landing-section,
+.ross-landing-preview,
+.ross-landing-cta {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin: 0 auto;
+}
+
+.ross-landing-hero {
+  padding: 5.5rem 0 4rem;
+  text-align: center;
+}
+
+.ross-landing-eyebrow,
+.ross-landing-section-head span,
+.ross-landing-preview-sidebar p,
+.ross-landing-preview-viewer p,
+.ross-landing-preview-summary > p:first-child,
+.ross-landing-preview-flag {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+}
+
+.ross-landing-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #f0ede6;
+  padding: 0.4rem 0.8rem;
+  color: #6b5c3e;
+}
+
+.ross-landing-hero h1,
+.ross-landing-section-head h2,
+.ross-landing-cta h2 {
+  margin: 1.25rem 0 0;
+  letter-spacing: -0.03em;
+  color: #0f0f0e;
+}
+
+.ross-landing-hero h1 {
+  font-size: clamp(2.7rem, 6vw, 4.5rem);
+  line-height: 1.04;
+}
+
+.ross-landing-hero p,
+.ross-landing-cta p {
+  max-width: 42rem;
+  margin: 1.25rem auto 0;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #666;
+}
+
+.ross-landing-hero small {
+  display: block;
+  margin-top: 1rem;
+  color: #8a8a84;
+}
+
+.ross-landing-preview {
+  padding-bottom: 4.5rem;
+}
+
+.ross-landing-preview-shell {
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1.1rem;
+  background: #1f1f1d;
+  box-shadow: 0 32px 60px rgba(15, 23, 42, 0.12);
+}
+
+.ross-landing-preview-bar {
+  display: flex;
+  gap: 0.45rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: #2a2a28;
+}
+
+.ross-landing-preview-bar span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #ff5f57;
+}
+
+.ross-landing-preview-bar span:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.ross-landing-preview-bar span:nth-child(3) {
+  background: #28c840;
+}
+
+.ross-landing-preview-grid {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) 280px;
+  min-height: 420px;
+}
+
+.ross-landing-preview-sidebar,
+.ross-landing-preview-summary {
+  background: #1a1a18;
+  padding: 1rem 0.85rem;
+}
+
+.ross-landing-preview-sidebar {
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ross-landing-preview-summary {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ross-landing-preview-sidebar p,
+.ross-landing-preview-summary > p:first-child,
+.ross-landing-preview-viewer p {
+  margin: 0 0 0.9rem;
+  color: #666;
+}
+
+.ross-landing-preview-sidebar div {
+  margin-bottom: 0.6rem;
+  padding: 0.75rem;
+  border-radius: 0.65rem;
+}
+
+.ross-landing-preview-sidebar div.is-active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ross-landing-preview-sidebar strong,
+.ross-landing-preview-summary strong {
+  display: block;
+  color: #ddd;
+  font-size: 0.72rem;
+}
+
+.ross-landing-preview-sidebar span {
+  display: block;
+  margin-top: 0.2rem;
+  color: #555;
+  font-size: 0.64rem;
+}
+
+.ross-landing-preview-viewer {
+  background: #f5f4f0;
+  padding: 1.15rem;
+}
+
+.ross-landing-preview-page {
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 1.2rem;
+}
+
+.ross-landing-preview-page strong {
+  display: block;
+  margin-bottom: 0.85rem;
+  font-size: 0.86rem;
+}
+
+.ross-landing-preview-page p,
+.ross-landing-preview-copy,
+.ross-landing-preview-evidence {
+  font-size: 0.72rem;
+  line-height: 1.7;
+}
+
+.ross-landing-preview-page p {
+  margin: 0 0 0.65rem;
+  color: #444;
+}
+
+.ross-landing-preview-page p.is-highlighted {
+  border-left: 2px solid #f59e0b;
+  border-radius: 0 0.25rem 0.25rem 0;
+  background: rgba(251, 191, 36, 0.18);
+  padding-left: 0.5rem;
+}
+
+.ross-landing-preview-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.ross-landing-preview-tabs span {
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.68rem;
+  color: #555;
+}
+
+.ross-landing-preview-tabs span.is-active {
+  background: #fff;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.ross-landing-preview-flag {
+  margin-bottom: 0.55rem;
+  color: #c9a96e;
+}
+
+.ross-landing-preview-copy {
+  color: #ccc;
+  margin: 0 0 1rem;
+}
+
+.ross-landing-preview-evidence {
+  border-radius: 0.45rem;
+  background: rgba(107, 159, 212, 0.08);
+  padding: 0.55rem 0.7rem;
+  color: #6b9fd4;
+}
+
+.ross-landing-section {
+  padding: 5rem 0;
+}
+
+.ross-landing-section.is-muted {
+  width: 100%;
+  background: #f5f3ee;
+  padding-left: max(1.25rem, calc((100% - 1120px) / 2));
+  padding-right: max(1.25rem, calc((100% - 1120px) / 2));
+}
+
+.ross-landing-section-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.ross-landing-section-head span {
+  color: #999;
+}
+
+.ross-landing-section-head h2 {
+  font-size: clamp(2rem, 4vw, 2.7rem);
+}
+
+.ross-landing-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.ross-landing-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.95rem;
+  background: #fff;
+  padding: 1.4rem;
+}
+
+.ross-landing-card h3,
+.ross-landing-step h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.ross-landing-card p,
+.ross-landing-step p,
+.ross-landing-card span {
+  margin: 0;
+  color: #777;
+  line-height: 1.7;
+}
+
+.ross-landing-quote {
+  margin-bottom: 1rem !important;
+  color: #444 !important;
+  font-style: italic;
+}
+
+.ross-landing-steps {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.ross-landing-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.ross-landing-step-num {
+  width: 2.9rem;
+  height: 2.9rem;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.ross-landing-cta {
+  padding: 4.8rem 1.25rem;
+  text-align: center;
+  background: #1a1a1a;
+  border-radius: 1.2rem 1.2rem 0 0;
+}
+
+.ross-landing-cta h2 {
+  color: #fff;
+}
+
+.ross-landing-cta p {
+  color: #888;
+}
+
+@media (max-width: 900px) {
+  .ross-landing-nav,
+  .ross-landing-links,
+  .ross-landing-actions,
+  .ross-landing-hero-actions {
+    flex-wrap: wrap;
+  }
+
+  .ross-landing-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ross-landing-preview-summary,
+  .ross-landing-preview-sidebar {
+    border: 0;
+  }
+}
+
 .workspace-shell {
   display: flex;
   height: 100vh;

@@ -335,7 +335,7 @@ function LeftPanel() {
 
       <div style={{ borderTop: '0.5px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
         <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', margin: 0, lineHeight: 1.7 }}>
-          SOC 2 Type II certified | End-to-end encrypted | Attorney-client privilege protected
+          Enhanced security coming soon | End-to-end encrypted | Attorney-client privilege protected
         </p>
       </div>
     </div>
@@ -862,6 +862,7 @@ export default function RossAuth(props) {
     loading,
     restoringSession,
     wakeScreen,
+    onBackToLanding,
     onModeChange,
     onFieldChange,
     onSubmit,
@@ -898,9 +899,50 @@ export default function RossAuth(props) {
           alignItems: 'center',
           justifyContent: 'center',
           padding: '24px',
-          fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          fontFamily:
+            "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          position: 'relative',
         }}
       >
+        {onBackToLanding ? (
+          <button
+            type="button"
+            onClick={onBackToLanding}
+            aria-label="Back to landing page"
+            title="Back to landing page"
+            style={{
+              position: 'absolute',
+              top: '24px',
+              left: '24px',
+              width: '42px',
+              height: '42px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: `1px solid ${GRAY[100]}`,
+              borderRadius: '999px',
+              background: 'rgba(255, 255, 255, 0.84)',
+              color: GRAY[800],
+              cursor: 'pointer',
+              boxShadow: '0 10px 24px rgba(44, 44, 42, 0.08)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+        ) : null}
+
         <div
           className="ross-auth-shell"
           style={{
