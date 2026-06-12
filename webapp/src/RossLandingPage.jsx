@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { wakeAiService } from './api/wakeApi'
 import landingImg from './assets/landing-img.png'
 
 const features = [
@@ -32,6 +33,10 @@ function MaterialIcon({ children, className = '' }) {
 export default function RossLandingPage({ onSignIn, onGetStarted }) {
   const [scrolled, setScrolled] = useState(false)
   const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    wakeAiService()
+  }, [])
 
   useEffect(() => {
     function handleScroll() {
