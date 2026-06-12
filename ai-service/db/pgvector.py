@@ -127,3 +127,43 @@ def fetch_document_nodes(*, owner_id: str, document_id: str) -> list[dict]:
         if isinstance(row.get("parent_id"), UUID):
             row["parent_id"] = str(row["parent_id"])
     return rows
+
+
+def fetch_document_leaf_nodes_with_embeddings(*, owner_id: str, document_id: str) -> list[dict]:
+    with get_connection() as conn:
+        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
+            cur.execute(
+                """
+                select
+                  id,
+                  document_id,
+                  owner_id,
+                  node_type,
+                  level,
+                  parent_id,
+                  content,
+                  embedding,
+                  page_start,
+                  page_end,
+                  chunk_index,
+                  cluster_id,
+                  metadata,
+                  created_at
+                from public.raptor_nodes
+                where owner_id = %s
+                  and document_id = %s
+                  and node_type = 'leaf'
+                order by chunk_index asc nulls last, created_at asc
+                """,
+                (owner_id, document_id),
+            )
+            rows = cur.fetchall()
+
+    for row in rows:
+        if isinstance(row["id"], UUID):
+            row["id"] = str(row["id"])
+        if isinstance(row.get("parent_id"), UUID):
+            row["parent_id"] = str(row["parent_id"])
+        if row.get("embedding") is not None:
+            row["embedding"] = list(row["embedding"])
+    return rows

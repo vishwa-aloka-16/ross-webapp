@@ -1,0 +1,1182 @@
+[
+  {
+    "id": "chunk_2045474fd5314bfc9c2d90c2e26d2979",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "Section 1 - Preamble, Operational Recitals, and Extensive\nDefinitions Matrix",
+    "page_start": 1,
+    "page_end": 1,
+    "chunk_index": 0,
+    "token_count": 14,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive",
+          "depth": 1
+        }
+      ],
+      "section_key": "section-1",
+      "section_parent_key": null,
+      "structural_depth": 1,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 1,
+      "page_end": 1,
+      "chunk_index": 0,
+      "token_count": 14,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_37bedaaee73549758dc6c3dd1eaeb8ca",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "SECTION 1. PREAMBLE, OPERATIONAL RECITALS, AND EXTENSIVE DEFINITIONS\nMATRIX",
+    "page_start": 1,
+    "page_end": 1,
+    "chunk_index": 1,
+    "token_count": 12,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "SECTION 1. PREAMBLE, OPERATIONAL RECITALS, AND EXTENSIVE DEFINITIONS",
+          "depth": 1
+        }
+      ],
+      "section_key": "section-1",
+      "section_parent_key": null,
+      "structural_depth": 1,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 1,
+      "page_end": 1,
+      "chunk_index": 1,
+      "token_count": 12,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_c67843385d11417bb838b7a882fa1280",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.1 Contractual Preamble and Identification of Strategic Purpose\nThis Master Technology Risk, Revenue, Data, and Platform Governance Agreement is entered into by and between the\ntechnology platform operator identified in the applicable execution record, ordering instrument, signed statement of work,\nauthenticated procurement record, or mutually accepted commercial schedule as the \"Provider,\" and the enterprise\ncustomer, institutional subscriber, commercial sponsor, or authorized system user identified in that same execution record as\nthe \"Customer.\" Provider and Customer are each a \"Party\" and together are the \"Parties.\" The Parties intend this Agreement\nto function as a durable, comprehensive, and operationally enforceable governance instrument for advanced software\nsystems, retrieval-augmented generation environments, document intelligence pipelines, metadata extraction services, legal\nanalytics engines, model orchestration layers, secure processing nodes, and any related hosted, managed, licensed,\nembedded, integrated, or professional services made available by or through Provider to Customer.\nThe Parties acknowledge that the systems covered by this Agreement may receive, ingest, classify, parse, normalize, chunk,\nindex, embed, retrieve, summarize, compare, transmit, store, transform, log, and otherwise process materials that may have\nlegal, financial, commercial, regulatory, operational, competitive, or reputational significance. The Parties further\nacknowledge that the relationship governed by this Agreement is not a casual trial, consumer subscription, unsecured data\nexchange, or informal technical collaboration. It is a controlled enterprise technology arrangement requiring disciplined\nallocation of ownership rights, confidentiality obligations, data governance responsibilities, financial duties, security\ncommitments, audit mechanisms, liability boundaries, escalation pathways, and termination consequences.",
+    "page_start": 1,
+    "page_end": 1,
+    "chunk_index": 2,
+    "token_count": 318,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "SECTION 1. PREAMBLE, OPERATIONAL RECITALS, AND EXTENSIVE DEFINITIONS",
+          "depth": 1
+        },
+        {
+          "key": "1-1",
+          "title": "1.1 Contractual Preamble and Identification of Strategic Purpose",
+          "depth": 2
+        }
+      ],
+      "section_key": "1-1",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 1,
+      "page_end": 1,
+      "chunk_index": 2,
+      "token_count": 318,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_6b6b74874a2e4076b5864422f5c4c84a",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.2 Operational Recitals\nProvider represents that it operates or controls specialized technological infrastructure capable of supporting high-sensitivity\nenterprise workflows, including document retrieval, contractual analysis, knowledge base augmentation, controlled\ngeneration, structured extraction, permissions-aware search, and technical risk mitigation. Customer desires access to such\ninfrastructure for internal business, legal, compliance, financial, operational, or research purposes, subject to the restrictions,\nsafeguards, and commercial rules set forth in this Agreement. Provider is willing to make the contracted services available\nonly upon the condition that Customer observes strict limits on use, disclosure, reverse engineering, benchmarking, model\ntraining, competitive derivation, and handling of confidential or regulated information.\nCustomer acknowledges that Provider's platform may include proprietary software, system architecture, technical\ndocumentation, orchestration logic, algorithmic weights, prompts, guardrails, evaluation tooling, vector indexes, connectors,\nprocessing methods, product roadmaps, support processes, and security configurations. Customer further acknowledges\nthat the economic value of the relationship depends not only upon access to visible user interfaces or outputs, but also upon\nthe preservation of Provider's hidden technical assets, confidential operational methods, commercial pricing structures,\nusage telemetry, and non-public compliance controls. Provider acknowledges that Customer may contribute sensitive\ndocuments, business instructions, regulated data, internal policies, matter files, customer records, procurement materials,\nsource materials, and proprietary analytical requirements, and that such Customer-controlled materials require protection\nagainst unauthorized access, unauthorized disclosure, improper use, and uncontrolled retention.\nThe Parties therefore enter into this Agreement to establish a full-spectrum contractual framework that identifies the exact\nlegal consequences of access, payment, use, audit, security failure, tax treatment, intellectual property exposure, data\nprocessing, breach response, indemnification, default, and dispute resolution. Each recital is intended to inform interpretation\nof the operative provisions, and no recital shall be treated as mere surplusage where it clarifies the commercial purpose,\ntechnical dependency, risk allocation, or intended boundary of a defined term.",
+    "page_start": 1,
+    "page_end": 1,
+    "chunk_index": 3,
+    "token_count": 396,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "SECTION 1. PREAMBLE, OPERATIONAL RECITALS, AND EXTENSIVE DEFINITIONS",
+          "depth": 1
+        },
+        {
+          "key": "1-2",
+          "title": "1.2 Operational Recitals",
+          "depth": 2
+        }
+      ],
+      "section_key": "1-2",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 1,
+      "page_end": 1,
+      "chunk_index": 3,
+      "token_count": 396,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_d66529966ecc42fcb4ce1bc834b00632",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.3 Rules of Construction\nUnless the context requires otherwise, words in the singular include the plural and words in the plural include the singular.\nReferences to \"including\" mean \"including without limitation.\" References to systems, services, software, documentation,",
+    "page_start": 1,
+    "page_end": 1,
+    "chunk_index": 4,
+    "token_count": 50,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "SECTION 1. PREAMBLE, OPERATIONAL RECITALS, AND EXTENSIVE DEFINITIONS",
+          "depth": 1
+        },
+        {
+          "key": "1-3",
+          "title": "1.3 Rules of Construction",
+          "depth": 2
+        }
+      ],
+      "section_key": "1-3",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 1,
+      "page_end": 1,
+      "chunk_index": 4,
+      "token_count": 50,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_ec3bab9ba1ca4948870b2f51cdb4f1f1",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 1\nlogs, records, or data include all versions, copies, backups, derivatives, extracts, exports, snapshots, telemetry streams,\ncaches, and archived forms of the same, whether existing in production, staging, test, disaster recovery, support, analytics,\nor audit environments. Any reference to a Party's knowledge includes the actual knowledge of its officers, directors, senior\nmanagers, security personnel, legal personnel, finance personnel, technical administrators, and persons who reasonably\nshould have known of the relevant fact because of their assigned responsibilities.",
+    "page_start": 1,
+    "page_end": 2,
+    "chunk_index": 5,
+    "token_count": 118,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 1",
+          "depth": 1
+        }
+      ],
+      "section_key": "section-1",
+      "section_parent_key": null,
+      "structural_depth": 1,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 1,
+      "page_end": 2,
+      "chunk_index": 5,
+      "token_count": 118,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_104aff476025498f8baf915ae98b8c8d",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4 Definitions Matrix\n#### 1.4.1 \"Affiliates\" \"Affiliates\" means, with respect to a Party, any entity that directly or indirectly Controls, is Controlled by,\nor is under common Control with that Party at the relevant time. The term includes parent companies, subsidiaries, sister\ncompanies, controlled joint ventures, controlled portfolio companies, successor entities, and entities operating through\ncontractual management arrangements where effective operational power is equivalent to ownership control. Affiliates do not\ninclude independent contractors, ordinary suppliers, end customers, passive investors, lenders, franchisees, resellers, or\nchannel partners unless the applicable entity satisfies the Control test or is expressly designated in an ordering document.\nWhere an entity ceases to satisfy the Control test, it ceases to be an Affiliate prospectively, but obligations arising from\naccess, use, receipt of Confidential Information, or processing of Customer Data during the period of affiliation survive.",
+    "page_start": 2,
+    "page_end": 2,
+    "chunk_index": 6,
+    "token_count": 184,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 1",
+          "depth": 1
+        },
+        {
+          "key": "1-4",
+          "title": "1.4 Definitions Matrix",
+          "depth": 2
+        }
+      ],
+      "section_key": "1-4",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 2,
+      "page_end": 2,
+      "chunk_index": 6,
+      "token_count": 184,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_c5ac113f80664781baa895a85965a89b",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.2 \"Control\"\n\"Control\" means the direct or indirect power to direct or cause the direction of the management, policies, security posture,\nfinancial decision-making, or operational conduct of an entity, whether through ownership of voting securities, contractual\nrights, board appointment powers, management authority, veto rights over material decisions, or any comparable legal or\npractical mechanism. Control is presumed where a person or entity owns more than fifty percent of the voting interests of\nanother entity, but may also exist below that threshold where governance rights provide decisive influence. Control does not\narise from ordinary minority investor protections, non-exclusive commercial influence, technical integration, or standard\nvendor management rights unless those rights allow actual direction of strategic or operational conduct. A change of Control\nincludes merger, consolidation, sale of substantially all assets, transfer of controlling voting interests, or other transaction by\nwhich a new person obtains controlling power.",
+    "page_start": 2,
+    "page_end": 2,
+    "chunk_index": 7,
+    "token_count": 193,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 1",
+          "depth": 1
+        },
+        {
+          "key": "1-4",
+          "title": "1.4 Definitions Matrix",
+          "depth": 2
+        },
+        {
+          "key": "1-4-2",
+          "title": "1.4.2 \"Control\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-2",
+      "section_parent_key": "1-4",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 2,
+      "page_end": 2,
+      "chunk_index": 7,
+      "token_count": 193,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_e9c1fd5a1a8c49dc9227a69c597fe546",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.3 \"Services\"\n\"Services\" means all hosted services, managed services, licensed software access, APIs, integrations, support functions,\nimplementation assistance, analytics features, administrative dashboards, documentation, professional services,\nmaintenance releases, security tooling, and related deliverables made available by Provider under this Agreement. The term\nincludes production services, sandbox services, beta modules, preview functions, staging environments, support portals,\nreporting interfaces, and any system component that is technically necessary for Customer to receive the contracted\nfunctionality. Services exclude third-party platforms not controlled by Provider, Customer systems, Customer-provided data\nrepositories, telecommunications networks, internet access, and any optional functionality not ordered or expressly enabled\nfor Customer.",
+    "page_start": 2,
+    "page_end": 2,
+    "chunk_index": 8,
+    "token_count": 132,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 1",
+          "depth": 1
+        },
+        {
+          "key": "1-4",
+          "title": "1.4 Definitions Matrix",
+          "depth": 2
+        },
+        {
+          "key": "1-4-3",
+          "title": "1.4.3 \"Services\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-3",
+      "section_parent_key": "1-4",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 2,
+      "page_end": 2,
+      "chunk_index": 8,
+      "token_count": 132,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_d952b6e15e1d44929d27d571797f7d20",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.4 \"Intellectual Property Rights\"\n\"Intellectual Property Rights\" means all patents, patent applications, copyrights, database rights, design rights, mask work\nrights, trade secret rights, moral rights to the extent waivable, trademark rights, service mark rights, domain name rights,\nknow-how rights, confidential information rights, rights in inventions, rights in algorithms, rights in source code and object\ncode, rights in technical documentation, and all similar proprietary rights existing anywhere in the world. The term includes\napplications, registrations, renewals, extensions, continuations, divisionals, reissues, improvements, enhancements,\nderivative works, and goodwill associated with protected subject matter. Intellectual Property Rights do not include a mere\ncontractual license to use another person's technology except to the extent that the license itself is an enforceable\ncontractual right. No transfer of Intellectual Property Rights occurs by implication, course of dealing, access to a system,\ndelivery of an output, payment of fees, or technical interoperability.",
+    "page_start": 2,
+    "page_end": 2,
+    "chunk_index": 9,
+    "token_count": 192,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 1",
+          "depth": 1
+        },
+        {
+          "key": "1-4",
+          "title": "1.4 Definitions Matrix",
+          "depth": 2
+        },
+        {
+          "key": "1-4-4",
+          "title": "1.4.4 \"Intellectual Property Rights\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-4",
+      "section_parent_key": "1-4",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 2,
+      "page_end": 2,
+      "chunk_index": 9,
+      "token_count": 192,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_6b10c6d2aeda454ebe8ff8975bb85e0c",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.5 \"Customer Data\"\n\"Customer Data\" means all documents, prompts, records, communications, attachments, instructions, datasets, matter\nmaterials, financial records, legal files, user inputs, configuration choices, annotations, metadata intentionally supplied by\nCustomer, and other information submitted to or made available through the Services by or on behalf of Customer. Customer\nData includes data submitted by Customer's authorized users, Affiliates, administrators, agents, and integrated systems.\nCustomer Data excludes Provider technology, System Metadata, aggregated operational statistics that do not identify",
+    "page_start": 2,
+    "page_end": 2,
+    "chunk_index": 10,
+    "token_count": 102,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 1",
+          "depth": 1
+        },
+        {
+          "key": "1-4",
+          "title": "1.4 Definitions Matrix",
+          "depth": 2
+        },
+        {
+          "key": "1-4-5",
+          "title": "1.4.5 \"Customer Data\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-5",
+      "section_parent_key": "1-4",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 2,
+      "page_end": 2,
+      "chunk_index": 10,
+      "token_count": 102,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_9d08ff26f7f14a2193b9e49a8a24114f",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 2\nCustomer or reveal Customer Confidential Information, and independently developed Provider materials. Customer Data\nretains its status even when converted into extracts, embeddings, indexes, chunks, normalized fields, or machine-readable\nrepresentations, except where it has been irreversibly anonymized and cannot reasonably be linked back to Customer.",
+    "page_start": 2,
+    "page_end": 3,
+    "chunk_index": 11,
+    "token_count": 76,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 2",
+          "depth": 1
+        }
+      ],
+      "section_key": "section-1",
+      "section_parent_key": null,
+      "structural_depth": 1,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 2,
+      "page_end": 3,
+      "chunk_index": 11,
+      "token_count": 76,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_869e17d436b24bc7af95de2973cb465c",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.6 \"System Metadata\"\n\"System Metadata\" means technical, operational, administrative, and diagnostic information generated by the Services\nconcerning use, performance, security, configuration, availability, error states, resource consumption, routing, access events,\nprocessing latency, feature interaction, authentication activity, and service health. The term includes timestamps, IP-derived\nconnection data, tenant identifiers, session identifiers, API request counts, error logs, event logs, queue data, processing\ndurations, token counts, storage metrics, node routing records, audit trails, and administrative actions. System Metadata\ndoes not include the substantive content of Customer Data except to the extent such content appears unavoidably within\nlimited log fragments needed for debugging, security investigation, legal compliance, or incident response. Provider may use\nSystem Metadata to operate, secure, improve, support, and audit the Services, provided that such use remains subject to\nconfidentiality, privacy, and security obligations.",
+    "page_start": 3,
+    "page_end": 3,
+    "chunk_index": 12,
+    "token_count": 175,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 2",
+          "depth": 1
+        },
+        {
+          "key": "1-4-6",
+          "title": "1.4.6 \"System Metadata\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-6",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 3,
+      "page_end": 3,
+      "chunk_index": 12,
+      "token_count": 175,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_22ade7fbdf3c4f03bb59d4b57957bd5c",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.7 \"Core Algorithmic Weights\"\n\"Core Algorithmic Weights\" means the numerical parameters, learned representations, trained coefficients, embeddings,\nmodel checkpoints, gradient-derived values, attention structures, transformer parameters, vector-space components, ranking\nparameters, calibration values, and other non-public machine-learned artifacts that influence the behavior of an artificial\nintelligence model or retrieval system controlled by Provider. The term includes base model weights, fine-tuned weights,\nadapter layers, reinforcement learning artifacts, evaluation-tuned weights, reranker weights, and any model component that\ncan materially alter generation, retrieval, classification, scoring, routing, or summarization. Core Algorithmic Weights do not\ninclude Customer Data merely because it is processed by a model, nor do they include general ideas observable from\nordinary use of the Services. Customer receives no right to inspect, copy, export, reconstruct, benchmark for replication, or\nderive Core Algorithmic Weights.",
+    "page_start": 3,
+    "page_end": 3,
+    "chunk_index": 13,
+    "token_count": 171,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 2",
+          "depth": 1
+        },
+        {
+          "key": "1-4-6",
+          "title": "1.4.6 \"System Metadata\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-7",
+          "title": "1.4.7 \"Core Algorithmic Weights\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-7",
+      "section_parent_key": "1-4-6",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 3,
+      "page_end": 3,
+      "chunk_index": 13,
+      "token_count": 171,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_aa694e01cde8429e8e654867dd59b11a",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.8 \"Processing Nodes\"\n\"Processing Nodes\" means the logical or physical computing resources, containers, virtual machines, serverless functions,\norchestration workers, queue consumers, storage processors, inference endpoints, indexing workers, embedding services,\ndatabase instances, cache layers, or other execution environments used to receive, process, transform, retrieve, store, route,\nor transmit data in connection with the Services. Processing Nodes may operate in production, staging, failover, backup, test,\nsupport, or disaster recovery environments. The term includes nodes operated directly by Provider and nodes operated by\napproved Sub-processors under Provider's control. A Processing Node is not deemed transferred, leased, or dedicated to\nCustomer merely because it processes Customer Data or appears in a tenant-specific workflow, unless an ordering\ndocument expressly provides for dedicated infrastructure.",
+    "page_start": 3,
+    "page_end": 3,
+    "chunk_index": 14,
+    "token_count": 157,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 2",
+          "depth": 1
+        },
+        {
+          "key": "1-4-6",
+          "title": "1.4.6 \"System Metadata\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-8",
+          "title": "1.4.8 \"Processing Nodes\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-8",
+      "section_parent_key": "1-4-6",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 3,
+      "page_end": 3,
+      "chunk_index": 14,
+      "token_count": 157,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_7de21f4f7e4248d0a3d237a2f711169a",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.9 \"Service Level Agreement\" or \"SLA\"\n\"Service Level Agreement\" or \"SLA\" means the written commitments governing availability, uptime, support response,\nseverity classification, incident escalation, maintenance windows, recovery objectives, performance thresholds, service\ncredits, and measurement exclusions applicable to the Services. An SLA is measured only against the production services\nexpressly covered by the applicable ordering document and excludes beta features, customer-side failures, force majeure\ninterruptions, scheduled maintenance, emergency maintenance, third-party network failures outside Provider's reasonable\ncontrol, unauthorized use, or interruptions caused by Customer's systems, credentials, instructions, integrations, or breach.\nSLA credits, where expressly stated, constitute a measured financial adjustment and not an admission of fault, warranty\nfailure, indemnifiable event, or liquidated damages unless the Agreement expressly states otherwise.",
+    "page_start": 3,
+    "page_end": 3,
+    "chunk_index": 15,
+    "token_count": 156,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 2",
+          "depth": 1
+        },
+        {
+          "key": "1-4-6",
+          "title": "1.4.6 \"System Metadata\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-9",
+          "title": "1.4.9 \"Service Level Agreement\" or \"SLA\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-9",
+      "section_parent_key": "1-4-6",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 3,
+      "page_end": 3,
+      "chunk_index": 15,
+      "token_count": 156,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_21f5d4a002b64df7a0eade55437c80f8",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.10 \"Sub-processors\"\n\"Sub-processors\" means third-party service providers, cloud infrastructure operators, hosting providers, security vendors,\nsupport tools, analytics processors, payment processors, professional service providers, or other entities engaged by\nProvider to process Customer Data or personal data on Provider's behalf in connection with the Services. Sub-processors do\nnot include telecommunications carriers, internet backbone providers, domain name services, or public network operators\nthat merely transmit data without selecting or determining processing purposes. Provider remains responsible for the acts\nand omissions of Sub-processors to the extent required by this Agreement and applicable law. Provider shall impose written\nobligations on Sub-processors that are no less protective in material respects than the confidentiality, security, and data",
+    "page_start": 3,
+    "page_end": 3,
+    "chunk_index": 16,
+    "token_count": 148,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 2",
+          "depth": 1
+        },
+        {
+          "key": "1-4-6",
+          "title": "1.4.6 \"System Metadata\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-10",
+          "title": "1.4.10 \"Sub-processors\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-10",
+      "section_parent_key": "1-4-6",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 3,
+      "page_end": 3,
+      "chunk_index": 16,
+      "token_count": 148,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_66fd0d485dc746d6a90e44453ee6c54b",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3\nprotection obligations applicable to Provider.",
+    "page_start": 3,
+    "page_end": 4,
+    "chunk_index": 17,
+    "token_count": 24,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3",
+          "depth": 1
+        }
+      ],
+      "section_key": "section-1",
+      "section_parent_key": null,
+      "structural_depth": 1,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 3,
+      "page_end": 4,
+      "chunk_index": 17,
+      "token_count": 24,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_c64dfe0f5bda4117886dccc1eb4ac451",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.11 \"Confidential Information\"\n\"Confidential Information\" means all non-public information disclosed by or on behalf of one Party to the other Party, whether\norally, visually, electronically, physically, or by access to systems, that is identified as confidential or that reasonably should\nbe understood to be confidential given its nature and the circumstances of disclosure. The term includes business plans,\nfinancial terms, pricing, security documentation, audit reports, product roadmaps, technical architecture, source code, APIs,\ncredentials, vulnerability information, customer lists, legal strategies, data processing details, usage information, Customer\nData, Provider technology, model behavior specifications, compliance materials, and non-public negotiations. Confidential\nInformation excludes information that the receiving Party can prove was lawfully known without restriction before disclosure,\nindependently developed without use of the disclosing Party's information, publicly available through no breach, or lawfully\nreceived from a third party without confidentiality restriction.",
+    "page_start": 4,
+    "page_end": 4,
+    "chunk_index": 18,
+    "token_count": 183,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3",
+          "depth": 1
+        },
+        {
+          "key": "1-4-11",
+          "title": "1.4.11 \"Confidential Information\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-11",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 4,
+      "page_end": 4,
+      "chunk_index": 18,
+      "token_count": 183,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_cf6b525e557d42cba625b73bfd81338d",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.12 \"Force Majeure Events\"\n\"Force Majeure Events\" means events beyond a Party's reasonable control that prevent or materially delay performance\ndespite commercially reasonable mitigation efforts. The term may include natural disasters, fire, flood, earthquake, epidemic,\npandemic, war, terrorism, civil unrest, government action, embargo, labor disruption not limited to the affected Party's own\nworkforce, internet backbone failure, utility failure, cloud provider regional outage, denial-of-service attack, or sudden legal\nprohibition. Force Majeure Events do not include lack of funds, ordinary changes in market conditions, failure to maintain\nreasonable backups, failure to implement known security controls, foreseeable supplier failure without contingency planning,\nor a Party's internal operational mismanagement. Payment obligations for amounts already accrued are not excused by force\nmajeure except where payment systems are legally or technically unavailable.",
+    "page_start": 4,
+    "page_end": 4,
+    "chunk_index": 19,
+    "token_count": 168,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3",
+          "depth": 1
+        },
+        {
+          "key": "1-4-11",
+          "title": "1.4.11 \"Confidential Information\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-12",
+          "title": "1.4.12 \"Force Majeure Events\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-12",
+      "section_parent_key": "1-4-11",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 4,
+      "page_end": 4,
+      "chunk_index": 19,
+      "token_count": 168,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_f7930005d26641d188d7889beb3f8d27",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.13 \"Covered Loss\"\n\"Covered Loss\" means damages, liabilities, penalties, settlement amounts, judgments, awards, fines, costs, expenses,\nreasonable attorneys' fees, expert fees, investigation costs, remediation costs, notification expenses, forensic expenses, and\nother legally recoverable losses that fall within an indemnity, reimbursement, liquidated damages, or liability allocation\nprovision of this Agreement. Covered Loss excludes amounts that are speculative, punitive, exemplary, indirect, or\nconsequential unless the relevant provision expressly includes them or applicable law does not permit exclusion. Covered\nLoss may include regulatory fines, third-party claims, data subject claims, intellectual property infringement losses, breach\nnotification costs, and reasonable technical remediation costs where the triggering clause expressly covers the relevant\nevent.",
+    "page_start": 4,
+    "page_end": 4,
+    "chunk_index": 20,
+    "token_count": 143,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3",
+          "depth": 1
+        },
+        {
+          "key": "1-4-11",
+          "title": "1.4.11 \"Confidential Information\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-13",
+          "title": "1.4.13 \"Covered Loss\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-13",
+      "section_parent_key": "1-4-11",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 4,
+      "page_end": 4,
+      "chunk_index": 20,
+      "token_count": 143,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_83342d23fde2485fbdefc853c3a64404",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.14 \"Gross Negligence\"\n\"Gross Negligence\" means a severe departure from the standard of care that a reasonable enterprise technology provider,\nenterprise customer, officer, security professional, or system administrator would exercise under comparable circumstances,\nreflecting reckless disregard for a known or obvious risk of material harm. Gross Negligence requires more than ordinary\nerror, isolated mistake, reasonable technical judgment that proves incorrect, or failure to achieve a perfect outcome. It\nincludes conscious failure to follow known mandatory safeguards, deliberate disregard of critical security alerts, knowingly\noperating exposed credentials, failing to contain a confirmed compromise, or ignoring a known defect likely to cause\nsubstantial loss. Whether conduct constitutes Gross Negligence must be evaluated in light of the information reasonably\navailable at the time, not solely through hindsight.",
+    "page_start": 4,
+    "page_end": 4,
+    "chunk_index": 21,
+    "token_count": 165,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3",
+          "depth": 1
+        },
+        {
+          "key": "1-4-11",
+          "title": "1.4.11 \"Confidential Information\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-14",
+          "title": "1.4.14 \"Gross Negligence\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-14",
+      "section_parent_key": "1-4-11",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 4,
+      "page_end": 4,
+      "chunk_index": 21,
+      "token_count": 165,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_e5af2122c0c042f79cf7f2eb15458eed",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.15 \"Material Breach\"\n\"Material Breach\" means a breach that substantially defeats the commercial, technical, confidentiality, security, payment,\nintellectual property, data protection, or risk-allocation purpose of this Agreement. Material Breach includes non-payment\nafter required notice, unauthorized disclosure of Confidential Information, prohibited reverse engineering, misuse of outputs\nfor model training, intentional circumvention of access controls, unlawful processing of regulated data, repeated SLA failures\nnot excused by the Agreement, failure to cooperate with breach response, infringement of Intellectual Property Rights, or\nviolation of audit obligations. A breach may be material even if monetary damages are difficult to quantify, particularly where\nthe breach threatens confidentiality, platform integrity, regulatory compliance, technical secrecy, or customer trust.",
+    "page_start": 4,
+    "page_end": 4,
+    "chunk_index": 22,
+    "token_count": 147,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3",
+          "depth": 1
+        },
+        {
+          "key": "1-4-11",
+          "title": "1.4.11 \"Confidential Information\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-15",
+          "title": "1.4.15 \"Material Breach\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-15",
+      "section_parent_key": "1-4-11",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 4,
+      "page_end": 4,
+      "chunk_index": 22,
+      "token_count": 147,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_52eb99b972d74e7ba05fbbcdab882a11",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.16 \"Authorized Users\"",
+    "page_start": 4,
+    "page_end": 4,
+    "chunk_index": 23,
+    "token_count": 4,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 3",
+          "depth": 1
+        },
+        {
+          "key": "1-4-11",
+          "title": "1.4.11 \"Confidential Information\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-16",
+          "title": "1.4.16 \"Authorized Users\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-16",
+      "section_parent_key": "1-4-11",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 4,
+      "page_end": 4,
+      "chunk_index": 23,
+      "token_count": 4,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_9b45e8b3c55f425a968f9bcdf98db9b0",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 4\n\"Authorized Users\" means Customer's employees, officers, contractors, legal advisors, technical administrators, and\napproved Affiliate personnel who are permitted by Customer to access the Services under Customer's account and for whom\nCustomer remains responsible. Authorized Users must access the Services only through valid credentials, approved\nauthentication methods, and assigned permission levels. Customer shall not permit credential sharing, anonymous access,\nunmanaged shared accounts, or use by persons who are not subject to confidentiality and acceptable-use obligations. Acts\nand omissions of Authorized Users are deemed acts and omissions of Customer for purposes of this Agreement.",
+    "page_start": 4,
+    "page_end": 5,
+    "chunk_index": 24,
+    "token_count": 140,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 4",
+          "depth": 1
+        }
+      ],
+      "section_key": "section-1",
+      "section_parent_key": null,
+      "structural_depth": 1,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 4,
+      "page_end": 5,
+      "chunk_index": 24,
+      "token_count": 140,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_b24cf82cf5ea4ddb826c577da46c1dca",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.17 \"Output\"\n\"Output\" means text, classifications, summaries, scores, citations, extracted fields, recommendations, reports, comparisons,\nstructured data, metadata displays, search results, generated language, or other materials produced by the Services in\nresponse to Customer Data, prompts, queries, configurations, or workflow actions. Output may be probabilistic,\nconfidence-ranked, incomplete, or dependent on source material quality. Unless expressly stated, Output is not legal advice,\ntax advice, financial advice, professional judgment, or a substitute for human review. Customer is responsible for validating\nOutput before relying on it in legal, regulatory, financial, employment, procurement, safety, or other consequential decisions.",
+    "page_start": 5,
+    "page_end": 5,
+    "chunk_index": 25,
+    "token_count": 124,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 4",
+          "depth": 1
+        },
+        {
+          "key": "1-4-17",
+          "title": "1.4.17 \"Output\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-17",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 5,
+      "page_end": 5,
+      "chunk_index": 25,
+      "token_count": 124,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_ee18eb8e922a4077843bda3187f0d87f",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.18 \"Security Incident\"\n\"Security Incident\" means an event that Provider confirms has resulted in unauthorized access to, acquisition of, exfiltration\nof, disclosure of, alteration of, destruction of, or loss of control over Customer Data or systems used to process Customer\nData. Security Incident does not include unsuccessful intrusion attempts, port scans, pings, automated attacks blocked by\nsecurity controls, or events affecting only anonymized data, provided that no Customer Data was compromised. A Security\nIncident may arise from malicious conduct, credential compromise, system misconfiguration, unauthorized employee activity,\nSub-processor failure, or external attack. The classification of an event as a Security Incident does not by itself determine\nfault, breach, damages, or indemnity.",
+    "page_start": 5,
+    "page_end": 5,
+    "chunk_index": 26,
+    "token_count": 147,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 4",
+          "depth": 1
+        },
+        {
+          "key": "1-4-17",
+          "title": "1.4.17 \"Output\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-18",
+          "title": "1.4.18 \"Security Incident\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-18",
+      "section_parent_key": "1-4-17",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 5,
+      "page_end": 5,
+      "chunk_index": 26,
+      "token_count": 147,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_afda765c389744d5b8e246d43c65e855",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.4.19 \"Applicable Law\"\n\"Applicable Law\" means all statutes, regulations, directives, rules, binding regulatory guidance, court orders, sanctions laws,\nexport control laws, tax laws, privacy laws, cybersecurity laws, digital services laws, anti-corruption laws, and other legally\nenforceable requirements applicable to a Party's performance under this Agreement. Applicable Law includes laws of\njurisdictions in which the Services are provided, Customer Data is processed, payments are made, personnel are located,\nregulatory obligations attach, or legal claims are asserted. Each Party is responsible for identifying and complying with laws\napplicable to its own business, systems, users, and instructions, except where this Agreement expressly assigns a particular\ncompliance duty to the other Party.",
+    "page_start": 5,
+    "page_end": 5,
+    "chunk_index": 27,
+    "token_count": 144,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 4",
+          "depth": 1
+        },
+        {
+          "key": "1-4-17",
+          "title": "1.4.17 \"Output\"",
+          "depth": 3
+        },
+        {
+          "key": "1-4-19",
+          "title": "1.4.19 \"Applicable Law\"",
+          "depth": 3
+        }
+      ],
+      "section_key": "1-4-19",
+      "section_parent_key": "1-4-17",
+      "structural_depth": 3,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 5,
+      "page_end": 5,
+      "chunk_index": 27,
+      "token_count": 144,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_565de0666c8148159ffc643a4b5236b9",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "1.5 Interpretive Priority\nIn the event of conflict, the signed ordering document controls solely with respect to pricing, purchased quantities,\nsubscription term, and expressly identified business-specific deviations; this Agreement controls with respect to intellectual\nproperty, confidentiality, data security, privacy, prohibited uses, liability allocation, audit, remedies, governing law, and\ndispute resolution unless the ordering document states the exact clause being modified and the specific replacement\nlanguage. No purchase order, invoice note, online portal term, procurement acknowledgement, or unilateral vendor form\nshall modify this Agreement unless signed by authorized legal representatives of both Parties.",
+    "page_start": 5,
+    "page_end": 5,
+    "chunk_index": 28,
+    "token_count": 123,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 4",
+          "depth": 1
+        },
+        {
+          "key": "1-5",
+          "title": "1.5 Interpretive Priority",
+          "depth": 2
+        }
+      ],
+      "section_key": "1-5",
+      "section_parent_key": "section-1",
+      "structural_depth": 2,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 5,
+      "page_end": 5,
+      "chunk_index": 28,
+      "token_count": 123,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  },
+  {
+    "id": "chunk_ca0ffe79bbfd4dee88b25e079d24c434",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "content": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 5",
+    "page_start": 5,
+    "page_end": 5,
+    "chunk_index": 29,
+    "token_count": 18,
+    "layout_strategy": "HIERARCHICAL",
+    "layout_partition": "section-1",
+    "metadata": {
+      "layout_strategy": "HIERARCHICAL",
+      "section_hierarchy": [
+        {
+          "key": "section-1",
+          "title": "Section 1 - Preamble, Operational Recitals, and Extensive Definitions Matrix | Page 5",
+          "depth": 1
+        }
+      ],
+      "section_key": "section-1",
+      "section_parent_key": null,
+      "structural_depth": 1,
+      "section_fragment": 0,
+      "layout_partition": "section-1",
+      "page_start": 5,
+      "page_end": 5,
+      "chunk_index": 29,
+      "token_count": 18,
+      "extraction_source": "v2",
+      "extraction_confidence": 0.96
+    }
+  }
+]

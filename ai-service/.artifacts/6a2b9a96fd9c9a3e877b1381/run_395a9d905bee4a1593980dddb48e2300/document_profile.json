@@ -1,0 +1,75 @@
+{
+  "document_id": "6a2b9a96fd9c9a3e877b1381",
+  "total_pages": 5,
+  "is_scanned": false,
+  "is_mixed": false,
+  "has_tables": false,
+  "has_complex_layout": true,
+  "ocr_required_pages": [],
+  "table_heavy_pages": [],
+  "empty_pages": [],
+  "average_text_density": 1.0,
+  "confidence": 0.9,
+  "pages": [
+    {
+      "page_number": 1,
+      "has_digital_text": true,
+      "text_density": 1.0,
+      "image_coverage": 0.0,
+      "is_empty": false,
+      "requires_ocr": false,
+      "is_table_heavy": false,
+      "is_complex_layout": true,
+      "is_mixed": false,
+      "word_count": 605
+    },
+    {
+      "page_number": 2,
+      "has_digital_text": true,
+      "text_density": 1.0,
+      "image_coverage": 0.0,
+      "is_empty": false,
+      "requires_ocr": false,
+      "is_table_heavy": false,
+      "is_complex_layout": true,
+      "is_mixed": false,
+      "word_count": 690
+    },
+    {
+      "page_number": 3,
+      "has_digital_text": true,
+      "text_density": 1.0,
+      "image_coverage": 0.0,
+      "is_empty": false,
+      "requires_ocr": false,
+      "is_table_heavy": false,
+      "is_complex_layout": true,
+      "is_mixed": false,
+      "word_count": 662
+    },
+    {
+      "page_number": 4,
+      "has_digital_text": true,
+      "text_density": 1.0,
+      "image_coverage": 0.0,
+      "is_empty": false,
+      "requires_ocr": false,
+      "is_table_heavy": false,
+      "is_complex_layout": true,
+      "is_mixed": false,
+      "word_count": 625
+    },
+    {
+      "page_number": 5,
+      "has_digital_text": true,
+      "text_density": 1.0,
+      "image_coverage": 0.0,
+      "is_empty": false,
+      "requires_ocr": false,
+      "is_table_heavy": false,
+      "is_complex_layout": true,
+      "is_mixed": false,
+      "word_count": 508
+    }
+  ]
+}

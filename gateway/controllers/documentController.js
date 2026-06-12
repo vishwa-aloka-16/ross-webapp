@@ -3,7 +3,12 @@ const Document = require('../models/Document')
 const { supabase } = require('../config/supabase')
 const { storageBucket } = require('../config/env')
 const { serializeDocument } = require('../services/documentService')
-const { enqueueIngestion, queryRag, fetchSummaryTree } = require('../services/aiService')
+const {
+  enqueueIngestion,
+  queryRag,
+  fetchSummaryTree,
+  fetchClusterDebug,
+} = require('../services/aiService')
 
 async function listDocuments(req, res) {
   try {
@@ -261,6 +266,44 @@ async function getSummaryTree(req, res) {
   }
 }
 
+async function getClusterDebug(req, res) {
+  const { documentId } = req.params
+  const { layoutStrategy, targetClusters = null } = req.body || {}
+
+  const document = await Document.findOne({
+    _id: documentId,
+    ownerId: req.user._id,
+  })
+
+  if (!document) {
+    return res.status(404).json({
+      error: 'Document not found.',
+    })
+  }
+
+  if (document.ingestionStatus !== 'indexed') {
+    return res.status(409).json({
+      error: 'Document is not indexed yet.',
+      ingestionStatus: document.ingestionStatus,
+    })
+  }
+
+  try {
+    const result = await fetchClusterDebug({
+      ownerId: req.user._id.toString(),
+      documentId: document._id.toString(),
+      layoutStrategy: layoutStrategy || document.layoutStrategy,
+      targetClusters,
+    })
+
+    return res.json(result)
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message || 'Cluster debug fetch failed.',
+    })
+  }
+}
+
 module.exports = {
   listDocuments,
   uploadDocuments,
@@ -269,4 +312,5 @@ module.exports = {
   getDocumentStatus,
   ragQuery,
   getSummaryTree,
+  getClusterDebug,
 }

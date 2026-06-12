@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "errors": [],
+  "warnings": [],
+  "stats": {
+    "chunk_count": 30,
+    "node_count": 37,
+    "leaf_count": 30
+  }
+}

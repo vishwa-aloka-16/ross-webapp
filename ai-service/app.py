@@ -11,6 +11,7 @@ from schemas.health import HealthCheck, HealthResponse
 from schemas.ingestion import IngestionRequest, IngestionStatusResponse
 from schemas.query import Citation, QueryRequest, QueryResponse
 from services.answer_service import generate_rag_answer
+from services.cluster_debug_service import build_cluster_preview
 from services.health_service import log_startup_health_summary
 from services.ingestion_service import get_job_status, queue_ingestion
 from services.retrieval_service import retrieve_context
@@ -131,6 +132,38 @@ def create_app() -> Flask:
             return jsonify({"error": "ownerId and documentId are required."}), 400
 
         return jsonify(build_summary_tree(owner_id=owner_id, document_id=document_id))
+
+    @api.post("/debug/clusters")
+    @require_internal_service_key
+    def debug_clusters():
+        body = request.get_json(silent=True) or {}
+        owner_id = body.get("ownerId")
+        document_id = body.get("documentId")
+        layout_strategy = body.get("layoutStrategy")
+        target_clusters = body.get("targetClusters")
+
+        if not owner_id or not document_id:
+            return jsonify({"error": "ownerId and documentId are required."}), 400
+
+        try:
+            target_clusters = int(target_clusters) if target_clusters not in (None, "") else None
+        except (TypeError, ValueError):
+            return jsonify({"error": "targetClusters must be a positive integer when provided."}), 400
+
+        if target_clusters is not None and target_clusters <= 0:
+            return jsonify({"error": "targetClusters must be a positive integer when provided."}), 400
+
+        try:
+            return jsonify(
+                build_cluster_preview(
+                    owner_id=owner_id,
+                    document_id=document_id,
+                    layout_strategy=layout_strategy,
+                    target_clusters=target_clusters,
+                )
+            )
+        except Exception as error:  # noqa: BLE001
+            return jsonify({"error": str(error)}), 500
 
     app.register_blueprint(api)
     return app

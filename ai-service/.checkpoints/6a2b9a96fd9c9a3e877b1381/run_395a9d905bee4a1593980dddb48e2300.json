@@ -1,0 +1,86 @@
+[
+  {
+    "checkpoint_id": "chk_df674163677440f78e996b70266124dd",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "run_id": "run_395a9d905bee4a1593980dddb48e2300",
+    "stage": "download_complete",
+    "status": "completed",
+    "artifact_ref": "C:\\Users\\user\\Desktop\\Personal_Projects\\LAWAI\\ai-service\\.artifacts\\6a2b9a96fd9c9a3e877b1381\\run_395a9d905bee4a1593980dddb48e2300\\downloaded_pdf_path.json",
+    "metadata": {},
+    "error_message": null,
+    "created_at": "2026-06-12T05:35:24.707337+00:00"
+  },
+  {
+    "checkpoint_id": "chk_fa13ec1f35fb4e83bfdc2e09bb258dec",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "run_id": "run_395a9d905bee4a1593980dddb48e2300",
+    "stage": "extract_complete",
+    "status": "completed",
+    "artifact_ref": "C:\\Users\\user\\Desktop\\Personal_Projects\\LAWAI\\ai-service\\.artifacts\\6a2b9a96fd9c9a3e877b1381\\run_395a9d905bee4a1593980dddb48e2300\\extraction_artifact.json",
+    "metadata": {},
+    "error_message": null,
+    "created_at": "2026-06-12T05:35:31.344236+00:00"
+  },
+  {
+    "checkpoint_id": "chk_161b751e4234436f955b4cafb0786109",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "run_id": "run_395a9d905bee4a1593980dddb48e2300",
+    "stage": "profile_complete",
+    "status": "completed",
+    "artifact_ref": "C:\\Users\\user\\Desktop\\Personal_Projects\\LAWAI\\ai-service\\.artifacts\\6a2b9a96fd9c9a3e877b1381\\run_395a9d905bee4a1593980dddb48e2300\\document_profile.json",
+    "metadata": {},
+    "error_message": null,
+    "created_at": "2026-06-12T05:35:32.713645+00:00"
+  },
+  {
+    "checkpoint_id": "chk_8d2dac4b9f264c929b26439c2921018e",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "run_id": "run_395a9d905bee4a1593980dddb48e2300",
+    "stage": "chunk_complete",
+    "status": "completed",
+    "artifact_ref": "C:\\Users\\user\\Desktop\\Personal_Projects\\LAWAI\\ai-service\\.artifacts\\6a2b9a96fd9c9a3e877b1381\\run_395a9d905bee4a1593980dddb48e2300\\chunks.json",
+    "metadata": {},
+    "error_message": null,
+    "created_at": "2026-06-12T05:35:33.826901+00:00"
+  },
+  {
+    "checkpoint_id": "chk_8a09d5f47e9649b98d87968132e60afa",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "run_id": "run_395a9d905bee4a1593980dddb48e2300",
+    "stage": "chunk_validation_complete",
+    "status": "completed",
+    "artifact_ref": "C:\\Users\\user\\Desktop\\Personal_Projects\\LAWAI\\ai-service\\.artifacts\\6a2b9a96fd9c9a3e877b1381\\run_395a9d905bee4a1593980dddb48e2300\\chunk_validation.json",
+    "metadata": {},
+    "error_message": null,
+    "created_at": "2026-06-12T05:35:33.832149+00:00"
+  },
+  {
+    "checkpoint_id": "chk_cdc99ba04aa24054a277bd5a2f45b809",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "run_id": "run_395a9d905bee4a1593980dddb48e2300",
+    "stage": "validate_complete",
+    "status": "completed",
+    "artifact_ref": "C:\\Users\\user\\Desktop\\Personal_Projects\\LAWAI\\ai-service\\.artifacts\\6a2b9a96fd9c9a3e877b1381\\run_395a9d905bee4a1593980dddb48e2300\\validation_result.json",
+    "metadata": {},
+    "error_message": null,
+    "created_at": "2026-06-12T05:36:19.448087+00:00"
+  },
+  {
+    "checkpoint_id": "chk_40a722f8f20544808b86c2a0b5bb6498",
+    "document_id": "6a2b9a96fd9c9a3e877b1381",
+    "owner_id": "6a2a604edf3b5559350a279b",
+    "run_id": "run_395a9d905bee4a1593980dddb48e2300",
+    "stage": "store_complete",
+    "status": "completed",
+    "artifact_ref": "C:\\Users\\user\\Desktop\\Personal_Projects\\LAWAI\\ai-service\\.artifacts\\6a2b9a96fd9c9a3e877b1381\\run_395a9d905bee4a1593980dddb48e2300\\store_result.json",
+    "metadata": {},
+    "error_message": null,
+    "created_at": "2026-06-12T05:36:32.537145+00:00"
+  }
+]

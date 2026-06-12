@@ -7,7 +7,7 @@ httpx==0.28.1
 numpy==1.26.4
 scipy==1.15.3
 scikit-learn==1.5.2
-pypdf==5.5.0
+pdfplumber==0.11.6
 google-genai==1.16.1
 supabase==2.15.2
 psycopg[binary]==3.2.9

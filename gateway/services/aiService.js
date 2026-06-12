@@ -66,8 +66,21 @@ async function fetchSummaryTree({ ownerId, documentId }) {
   })
 }
 
+async function fetchClusterDebug({ ownerId, documentId, layoutStrategy, targetClusters }) {
+  return requestAiService('/debug/clusters', {
+    method: 'POST',
+    body: JSON.stringify({
+      ownerId,
+      documentId,
+      layoutStrategy,
+      targetClusters,
+    }),
+  })
+}
+
 module.exports = {
   enqueueIngestion,
   queryRag,
   fetchSummaryTree,
+  fetchClusterDebug,
 }

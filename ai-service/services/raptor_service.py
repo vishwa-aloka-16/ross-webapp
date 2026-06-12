@@ -3,6 +3,7 @@ import math
 from collections import defaultdict
 from uuid import uuid4
 
+from services.cluster_planning_service import build_cluster_plan
 from services.summary_queue import summary_queue
 
 logger = logging.getLogger(__name__)
@@ -122,7 +123,14 @@ async def build_summary_nodes(*, document_id: str, owner_id: str, leaf_nodes: li
             )
             break
 
-        clusters = cluster_fn(current_nodes, current_embeddings, target_node_count, level)
+        cluster_plan = build_cluster_plan(
+            current_nodes=current_nodes,
+            current_embeddings=current_embeddings,
+            target_clusters=target_node_count,
+            level=level,
+            cluster_fn=cluster_fn,
+        )
+        clusters = cluster_plan["normalized_clusters"]
         is_full_merge = len(clusters) == 1 and len(clusters[0]) == len(current_nodes)
         should_create_root = target_node_count == 1 and len(current_nodes) > 1
 
@@ -146,10 +154,16 @@ async def build_summary_nodes(*, document_id: str, owner_id: str, leaf_nodes: li
         )
 
         next_level_nodes: list[dict] = []
-        summary_texts: list[str] = []
+        created_summary_nodes: list[dict] = []
 
         for cluster_index, member_indexes in enumerate(clusters):
             member_nodes = [current_nodes[index] for index in member_indexes]
+            cluster_diagnostic = cluster_plan["normalized_diagnostics"][cluster_index]
+
+            if not cluster_diagnostic["isSummarizable"]:
+                next_level_nodes.extend(member_nodes)
+                continue
+
             summary_node = await summarize_group(
                 document_id=document_id,
                 owner_id=owner_id,
@@ -163,7 +177,7 @@ async def build_summary_nodes(*, document_id: str, owner_id: str, leaf_nodes: li
                 },
             )
             next_level_nodes.append(summary_node)
-            summary_texts.append(summary_node["content"])
+            created_summary_nodes.append(summary_node)
             all_summary_nodes.append(summary_node)
 
         if len(next_level_nodes) >= len(current_nodes):
@@ -176,8 +190,8 @@ async def build_summary_nodes(*, document_id: str, owner_id: str, leaf_nodes: li
             )
             break
 
-        next_level_embeddings = await embed_fn(summary_texts)
-        for summary_node, embedding in zip(next_level_nodes, next_level_embeddings, strict=True):
+        next_level_embeddings = await embed_fn([node["content"] for node in created_summary_nodes]) if created_summary_nodes else []
+        for summary_node, embedding in zip(created_summary_nodes, next_level_embeddings, strict=True):
             summary_node["embedding"] = embedding
 
         current_nodes = next_level_nodes
@@ -234,7 +248,7 @@ async def build_structural_summary_nodes(
                 break
 
         next_level_nodes: list[dict] = []
-        summary_texts: list[str] = []
+        created_summary_nodes: list[dict] = []
 
         for group_index, (path, member_nodes) in enumerate(grouped_nodes.items()):
             hierarchy = _path_to_hierarchy(member_nodes, path)
@@ -254,11 +268,11 @@ async def build_structural_summary_nodes(
                 },
             )
             next_level_nodes.append(summary_node)
-            summary_texts.append(summary_node["content"])
+            created_summary_nodes.append(summary_node)
             all_summary_nodes.append(summary_node)
 
-        next_level_embeddings = await embed_fn(summary_texts)
-        for summary_node, embedding in zip(next_level_nodes, next_level_embeddings, strict=True):
+        next_level_embeddings = await embed_fn([node["content"] for node in created_summary_nodes]) if created_summary_nodes else []
+        for summary_node, embedding in zip(created_summary_nodes, next_level_embeddings, strict=True):
             summary_node["embedding"] = embedding
 
         if carryover_nodes:
