@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 const GRAY = {
   50: '#F1EFE8',
@@ -513,6 +513,7 @@ function LoginForm({
   onFieldChange,
   onSubmit,
   onSwitch,
+  onForgotPassword,
 }) {
   const [remember, setRemember] = useState(false)
 
@@ -577,6 +578,7 @@ function LoginForm({
           </label>
           <button
             type="button"
+            onClick={onForgotPassword}
             style={{
               background: 'none',
               border: 'none',
@@ -614,14 +616,16 @@ function LoginForm({
           <button
             key={provider}
             type="button"
+            disabled
             style={{
               padding: '10px',
-              background: '#fff',
+              background: GRAY[50],
               border: `1px solid ${GRAY[100]}`,
               borderRadius: '10px',
               fontSize: '13px',
               color: GRAY[700],
-              cursor: 'pointer',
+              cursor: 'not-allowed',
+              opacity: 0.75,
               fontFamily: 'inherit',
               fontWeight: 500,
               display: 'flex',
@@ -645,13 +649,16 @@ function LoginForm({
                 </>
               )}
             </svg>
-            {provider}
+            <span>{provider}</span>
+            <span style={{ fontSize: '10px', color: GRAY[500], textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Coming soon
+            </span>
           </button>
         ))}
       </div>
 
       <p style={{ textAlign: 'center', fontSize: '13px', color: GRAY[400], margin: 0 }}>
-        No account yet?{' '}
+        Need a guided walkthrough?{' '}
         <button
           type="button"
           onClick={onSwitch}
@@ -666,14 +673,14 @@ function LoginForm({
             padding: 0,
           }}
         >
-          {'Create one ->'}
+          {'Request a demo ->'}
         </button>
       </p>
     </div>
   )
 }
 
-function RegisterForm({
+function ResetPasswordForm({
   form,
   error,
   loading,
@@ -681,24 +688,6 @@ function RegisterForm({
   onSubmit,
   onSwitch,
 }) {
-  const [agree, setAgree] = useState(false)
-
-  const passwordStrength = useMemo(() => {
-    if (form.password.length === 0) {
-      return 0
-    }
-    if (form.password.length < 6) {
-      return 1
-    }
-    if (form.password.length < 10) {
-      return 2
-    }
-    return 3
-  }, [form.password])
-
-  const strengthColors = ['transparent', '#E24B4A', '#EF9F27', '#1D9E75']
-  const strengthLabels = ['', 'Weak', 'Fair', 'Strong']
-
   return (
     <div
       style={{
@@ -711,10 +700,10 @@ function RegisterForm({
       }}
     >
       <p style={{ fontSize: '22px', fontWeight: 500, color: GRAY[900], margin: '0 0 6px' }}>
-        Create your account
+        Reset your password
       </p>
       <p style={{ fontSize: '13px', color: GRAY[400], margin: '0 0 28px' }}>
-        Create an account to get started with your own legal assistant!
+        Fill out the form and your email app will open a password reset request to the ROSS team.
       </p>
 
       <form onSubmit={onSubmit}>
@@ -748,6 +737,174 @@ function RegisterForm({
         />
 
         <InputField
+          label="Phone number"
+          type="tel"
+          placeholder="+94 77 123 4567"
+          value={form.phone}
+          onChange={(event) => onFieldChange('phone', event.target.value)}
+          icon={
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.8 19.8 0 012.08 4.18 2 2 0 014.06 2h3a2 2 0 012 1.72c.12.9.33 1.78.61 2.62a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.46-1.14a2 2 0 012.11-.45c.84.28 1.72.49 2.62.61A2 2 0 0122 16.92z" />
+            </svg>
+          }
+        />
+
+        <div style={{ marginBottom: '24px' }}>
+          <label
+            style={{
+              display: 'block',
+              fontSize: '12px',
+              fontWeight: 500,
+              color: GRAY[600],
+              marginBottom: '6px',
+              letterSpacing: '0.03em',
+            }}
+          >
+            Additional details
+          </label>
+          <textarea
+            placeholder="Tell us anything that will help identify your account."
+            value={form.message}
+            onChange={(event) => onFieldChange('message', event.target.value)}
+            style={{
+              width: '100%',
+              minHeight: '112px',
+              resize: 'vertical',
+              border: `1px solid ${GRAY[100]}`,
+              borderRadius: '10px',
+              background: GRAY[50],
+              padding: '11px 12px',
+              fontSize: '13.5px',
+              color: GRAY[900],
+              outline: 'none',
+              fontFamily: 'inherit',
+              lineHeight: 1.6,
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            marginBottom: '24px',
+            borderRadius: '12px',
+            background: GRAY[50],
+            border: `1px solid ${GRAY[100]}`,
+            padding: '12px 14px',
+          }}
+        >
+          <p style={{ margin: 0, fontSize: '12px', color: GRAY[500], lineHeight: 1.6 }}>
+            This opens your default mail app with a prepared message addressed to{' '}
+            <span style={{ color: GRAY[800], fontWeight: 600 }}>vishwaaloka16@gmail.com</span>.
+          </p>
+        </div>
+
+        {error && <p className="error-banner">{error}</p>}
+
+        <PrimaryButton loading={loading} disabled={loading}>
+          {!loading && (
+            <>
+              Send reset request
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </>
+          )}
+        </PrimaryButton>
+      </form>
+
+      <p style={{ textAlign: 'center', fontSize: '13px', color: GRAY[400], margin: '20px 0 0' }}>
+        Remembered your password?{' '}
+        <button
+          type="button"
+          onClick={onSwitch}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontFamily: 'inherit',
+            fontSize: '13px',
+            fontWeight: 500,
+            color: GRAY[900],
+            cursor: 'pointer',
+            padding: 0,
+          }}
+        >
+          {'Back to sign in ->'}
+        </button>
+      </p>
+    </div>
+  )
+}
+
+function DemoRequestForm({
+  form,
+  error,
+  loading,
+  onFieldChange,
+  onSubmit,
+  onSwitch,
+}) {
+  return (
+    <div
+      style={{
+        flex: 1,
+        padding: '40px 52px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        maxWidth: '420px',
+      }}
+    >
+      <p style={{ fontSize: '22px', fontWeight: 500, color: GRAY[900], margin: '0 0 6px' }}>
+        Request a demo
+      </p>
+      <p style={{ fontSize: '13px', color: GRAY[400], margin: '0 0 28px' }}>
+        Share a few details and your email app will open a ready-to-send demo request.
+      </p>
+
+      <form onSubmit={onSubmit}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <InputField
+            label="First name"
+            placeholder="Jane"
+            value={form.firstName}
+            onChange={(event) => onFieldChange('firstName', event.target.value)}
+          />
+          <InputField
+            label="Last name"
+            placeholder="Smith"
+            value={form.lastName}
+            onChange={(event) => onFieldChange('lastName', event.target.value)}
+          />
+        </div>
+
+        <InputField
+          label="Work email"
+          type="email"
+          placeholder="you@lawfirm.com"
+          value={form.email}
+          onChange={(event) => onFieldChange('email', event.target.value)}
+          icon={
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          }
+        />
+
+        <InputField
+          label="Phone number"
+          type="tel"
+          placeholder="+94 77 123 4567"
+          value={form.phone}
+          onChange={(event) => onFieldChange('phone', event.target.value)}
+          icon={
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.8 19.8 0 012.08 4.18 2 2 0 014.06 2h3a2 2 0 012 1.72c.12.9.33 1.78.61 2.62a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.46-1.14a2 2 0 012.11-.45c.84.28 1.72.49 2.62.61A2 2 0 0122 16.92z" />
+            </svg>
+          }
+        />
+
+        <InputField
           label="Firm or organisation"
           placeholder="Smith & Partners LLP"
           value={form.firm}
@@ -759,70 +916,61 @@ function RegisterForm({
           }
         />
 
-        <PasswordInput
-          label="Password"
-          placeholder="Min. 10 characters"
-          value={form.password}
-          onChange={(event) => onFieldChange('password', event.target.value)}
-        />
+        <div style={{ marginBottom: '24px' }}>
+          <label
+            style={{
+              display: 'block',
+              fontSize: '12px',
+              fontWeight: 500,
+              color: GRAY[600],
+              marginBottom: '6px',
+              letterSpacing: '0.03em',
+            }}
+          >
+            What would you like to see in the demo?
+          </label>
+          <textarea
+            placeholder="Tell us about your team, use case, or preferred time."
+            value={form.message}
+            onChange={(event) => onFieldChange('message', event.target.value)}
+            style={{
+              width: '100%',
+              minHeight: '112px',
+              resize: 'vertical',
+              border: `1px solid ${GRAY[100]}`,
+              borderRadius: '10px',
+              background: GRAY[50],
+              padding: '11px 12px',
+              fontSize: '13.5px',
+              color: GRAY[900],
+              outline: 'none',
+              fontFamily: 'inherit',
+              lineHeight: 1.6,
+            }}
+          />
+        </div>
 
-        {form.password.length > 0 && (
-          <div style={{ marginTop: '-10px', marginBottom: '16px' }}>
-            <div style={{ display: 'flex', gap: '4px', marginBottom: '4px' }}>
-              {[1, 2, 3].map((index) => (
-                <div
-                  key={index}
-                  style={{
-                    flex: 1,
-                    height: '3px',
-                    borderRadius: '2px',
-                    background:
-                      index <= passwordStrength ? strengthColors[passwordStrength] : GRAY[100],
-                    transition: 'background 0.2s',
-                  }}
-                />
-              ))}
-            </div>
-            <p
-              style={{
-                fontSize: '11px',
-                color: strengthColors[passwordStrength],
-                margin: 0,
-                fontWeight: 500,
-              }}
-            >
-              {strengthLabels[passwordStrength]}
-            </p>
-          </div>
-        )}
-
-        <label
+        <div
           style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '8px',
             marginBottom: '24px',
-            cursor: 'pointer',
+            borderRadius: '12px',
+            background: GRAY[50],
+            border: `1px solid ${GRAY[100]}`,
+            padding: '12px 14px',
           }}
         >
-          <input
-            type="checkbox"
-            checked={agree}
-            onChange={(event) => setAgree(event.target.checked)}
-            style={{ accentColor: GRAY[800], marginTop: '2px', flexShrink: 0 }}
-          />
-          <span style={{ fontSize: '12px', color: GRAY[500], lineHeight: 1.6 }}>
-            I agree to the <span style={{ color: GRAY[800], fontWeight: 500 }}>Terms of Service</span>{' '}
-            and <span style={{ color: GRAY[800], fontWeight: 500 }}>Privacy Policy</span>
-          </span>
-        </label>
+          <p style={{ margin: 0, fontSize: '12px', color: GRAY[500], lineHeight: 1.6 }}>
+            This opens your default mail app with a prepared message addressed to{' '}
+            <span style={{ color: GRAY[800], fontWeight: 600 }}>vishwaaloka16@gmail.com</span>.
+          </p>
+        </div>
 
         {error && <p className="error-banner">{error}</p>}
 
-        <PrimaryButton loading={loading} disabled={loading || !agree}>
+        <PrimaryButton loading={loading} disabled={loading}>
           {!loading && (
             <>
-              Create account
+              Send demo request
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
@@ -866,6 +1014,8 @@ export default function RossAuth(props) {
     onModeChange,
     onFieldChange,
     onSubmit,
+    onDemoRequestSubmit,
+    onResetPasswordSubmit,
   } = props
 
   return (
@@ -971,15 +1121,25 @@ export default function RossAuth(props) {
                   restoringSession={restoringSession}
                   onFieldChange={onFieldChange}
                   onSubmit={onSubmit}
-                  onSwitch={() => onModeChange('register')}
+                  onSwitch={() => onModeChange('demo')}
+                  onForgotPassword={() => onModeChange('reset')}
                 />
-              ) : (
-                <RegisterForm
+              ) : mode === 'reset' ? (
+                <ResetPasswordForm
                   form={form}
                   error={error}
                   loading={loading}
                   onFieldChange={onFieldChange}
-                  onSubmit={onSubmit}
+                  onSubmit={onResetPasswordSubmit}
+                  onSwitch={() => onModeChange('login')}
+                />
+              ) : (
+                <DemoRequestForm
+                  form={form}
+                  error={error}
+                  loading={loading}
+                  onFieldChange={onFieldChange}
+                  onSubmit={onDemoRequestSubmit}
                   onSwitch={() => onModeChange('login')}
                 />
               )}

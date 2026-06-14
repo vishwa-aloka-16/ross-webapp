@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import RossAuth from './RossAuth'
 import RossLandingPage from './RossLandingPage'
 import './App.css'
-import { fetchCurrentUser, login, register } from './api/authApi'
+import { fetchCurrentUser, login } from './api/authApi'
 import {
   deleteDocument as deleteDocumentRequest,
   fetchDocuments,
@@ -20,6 +20,8 @@ const EMPTY_AUTH_FORM = {
   email: '',
   firm: '',
   password: '',
+  phone: '',
+  message: '',
 }
 
 function withPdf(name) {
@@ -176,6 +178,20 @@ export default function App() {
     trackedIngestionDocuments.every((document) =>
       ['indexed', 'failed'].includes(document.ingestionStatus),
     )
+
+  useEffect(() => {
+    if (token && user) {
+      document.title = 'ROSS Workspace'
+      return
+    }
+
+    if (entryScreen === 'auth') {
+      document.title = 'ROSS Legal Intelligence Platform | Sign In'
+      return
+    }
+
+    document.title = 'ROSS Legal Intelligence Platform'
+  }, [entryScreen, token, user])
 
   useEffect(() => {
     if (!token) {
@@ -349,16 +365,7 @@ export default function App() {
     setAuthError('')
 
     try {
-      const payload =
-        authMode === 'login'
-          ? await login({ email: authForm.email, password: authForm.password })
-          : await register({
-              firstName: authForm.firstName,
-              lastName: authForm.lastName,
-              email: authForm.email,
-              firm: authForm.firm,
-              password: authForm.password,
-            })
+      const payload = await login({ email: authForm.email, password: authForm.password })
 
       window.localStorage.setItem(TOKEN_STORAGE_KEY, payload.token)
       setToken(payload.token)
@@ -380,6 +387,53 @@ export default function App() {
     setSummaryTree(null)
     setSelectedSummaryNode(null)
     setSelectedEvidence([])
+  }
+
+  function handleDemoRequestSubmit(event) {
+    event.preventDefault()
+    setAuthError('')
+
+    const fullName = `${authForm.firstName} ${authForm.lastName}`.trim()
+    const subject = `ROSS demo request from ${fullName || authForm.email || 'website visitor'}`
+    const body = [
+      'Hello,',
+      '',
+      'I would like to request a demo of ROSS.',
+      '',
+      `Name: ${fullName || 'Not provided'}`,
+      `Email: ${authForm.email || 'Not provided'}`,
+      `Phone: ${authForm.phone || 'Not provided'}`,
+      `Firm / Organisation: ${authForm.firm || 'Not provided'}`,
+      '',
+      'Notes:',
+      authForm.message?.trim() || 'No additional details provided.',
+    ].join('\n')
+
+    const mailtoUrl = `mailto:vishwaaloka16@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = mailtoUrl
+  }
+
+  function handleResetPasswordSubmit(event) {
+    event.preventDefault()
+    setAuthError('')
+
+    const fullName = `${authForm.firstName} ${authForm.lastName}`.trim()
+    const subject = `ROSS password reset request from ${authForm.email || fullName || 'website visitor'}`
+    const body = [
+      'Hello,',
+      '',
+      'I would like to reset my ROSS password.',
+      '',
+      `Name: ${fullName || 'Not provided'}`,
+      `Email: ${authForm.email || 'Not provided'}`,
+      `Phone: ${authForm.phone || 'Not provided'}`,
+      '',
+      'Notes:',
+      authForm.message?.trim() || 'Please help me reset my password.',
+    ].join('\n')
+
+    const mailtoUrl = `mailto:vishwaaloka16@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = mailtoUrl
   }
 
   function handleUploadClick() {
@@ -600,7 +654,7 @@ export default function App() {
             setEntryScreen('auth')
           }}
           onGetStarted={() => {
-            setAuthMode('register')
+            setAuthMode('demo')
             setEntryScreen('auth')
           }}
         />
@@ -622,6 +676,8 @@ export default function App() {
         }}
         onFieldChange={(field, value) => setAuthForm((current) => ({ ...current, [field]: value }))}
         onSubmit={handleAuthSubmit}
+        onDemoRequestSubmit={handleDemoRequestSubmit}
+        onResetPasswordSubmit={handleResetPasswordSubmit}
       />
     )
   }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { wakeAiService } from './api/wakeApi'
-import landingImg from './assets/landing-img.png'
+import promoVideo from './assets/promo.mp4'
 
 const features = [
   {
@@ -24,6 +24,18 @@ const trustItems = [
   { icon: 'verified_user', label: 'Enhanced security coming soon' },
   { icon: 'lock', label: 'End-to-end encrypted' },
   { icon: 'gavel', label: 'Privilege protected' },
+]
+
+const privacyPoints = [
+  'Do not upload valuable, highly sensitive, or irreplaceable information to ROSS at this stage.',
+  'Full protection features are not enabled yet, so uploaded material may not have the level of security expected for production legal work.',
+  'ROSS does not guarantee credibility, completeness, or legal reliability yet, and outputs should not be treated as final legal advice.',
+]
+
+const termsPoints = [
+  'By using ROSS, you agree to avoid uploading valuable confidential information while the platform is still being improved.',
+  'You understand that protection and security safeguards are not fully enabled yet.',
+  'You agree that ROSS does not currently accept responsibility for credibility, completeness, or legal accuracy of outputs.',
 ]
 
 function MaterialIcon({ children, className = '' }) {
@@ -128,7 +140,7 @@ export default function RossLandingPage({ onSignIn, onGetStarted }) {
 
           <div className="ross-liquid-hero-actions ross-load-in is-third">
             <button type="button" className="ross-liquid-solid-action is-large" onClick={onGetStarted}>
-              Get Started Free
+              Request Demo
             </button>
             <button type="button" className="ross-liquid-glass-action is-large" onClick={onSignIn}>
               Sign In
@@ -136,10 +148,14 @@ export default function RossLandingPage({ onSignIn, onGetStarted }) {
           </div>
 
           <div className="ross-liquid-app-frame ross-load-in is-fourth" aria-label="ROSS workspace preview">
-            <img
-              className="ross-liquid-app-image"
-              src={landingImg}
-              alt="ROSS legal document workspace preview"
+            <video
+              className="ross-liquid-app-video"
+              src={promoVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label="ROSS legal document workspace promo video"
             />
           </div>
         </section>
@@ -170,7 +186,7 @@ export default function RossLandingPage({ onSignIn, onGetStarted }) {
             </p>
             <div className="ross-liquid-final-actions">
               <button type="button" className="ross-liquid-solid-action is-large" onClick={onGetStarted}>
-                Get Started Free
+                Request Demo
               </button>
               <button type="button" className="ross-liquid-glass-action is-large" onClick={onSignIn}>
                 Talk to Sales
@@ -186,6 +202,36 @@ export default function RossLandingPage({ onSignIn, onGetStarted }) {
             </div>
           </div>
         </section>
+
+        <section className="ross-liquid-legal-grid">
+          <article id="privacy" className="ross-liquid-legal-card" data-ross-reveal>
+            <span className="ross-liquid-legal-eyebrow">Privacy Policy</span>
+            <h3>Use ROSS carefully during this early stage</h3>
+            <p>
+              ROSS is still evolving. Please review the following privacy limitations before
+              uploading documents or sharing sensitive information.
+            </p>
+            <ul>
+              {privacyPoints.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article id="terms" className="ross-liquid-legal-card" data-ross-reveal>
+            <span className="ross-liquid-legal-eyebrow">Terms of Service</span>
+            <h3>Your use of ROSS means you agree to these terms</h3>
+            <p>
+              By continuing to use ROSS, request a demo, or sign in, you acknowledge and agree
+              to the following conditions.
+            </p>
+            <ul>
+              {termsPoints.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </article>
+        </section>
       </main>
 
       <footer className="ross-liquid-footer">
@@ -196,8 +242,6 @@ export default function RossLandingPage({ onSignIn, onGetStarted }) {
         <nav aria-label="Footer navigation">
           <a href="#privacy">Privacy Policy</a>
           <a href="#terms">Terms of Service</a>
-          <a href="#security">Security Whitepaper</a>
-          <a href="#legal">Legal Disclaimer</a>
         </nav>
       </footer>
     </div>
