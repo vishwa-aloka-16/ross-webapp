@@ -30,17 +30,34 @@ async function request(path, options = {}) {
   return payload
 }
 
-export function login({ email, password }) {
-  return request('/api/auth/login', {
+export function loginInit({ email }) {
+  return request('/api/auth/login/init', {
     method: 'POST',
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email }),
   })
 }
 
-export function register({ firstName, lastName, email, firm, password }) {
+export function loginFinish({ email, challengeId, clientNonce, clientProof }) {
+  return request('/api/auth/login/finish', {
+    method: 'POST',
+    body: JSON.stringify({ email, challengeId, clientNonce, clientProof }),
+  })
+}
+
+export function register({ firstName, lastName, email, firm, authSalt, authVerifier, kdfAlgorithm, kdfParams, keyVersion }) {
   return request('/api/auth/register', {
     method: 'POST',
-    body: JSON.stringify({ firstName, lastName, email, firm, password }),
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      email,
+      firm,
+      authSalt,
+      authVerifier,
+      kdfAlgorithm,
+      kdfParams,
+      keyVersion,
+    }),
   })
 }
 

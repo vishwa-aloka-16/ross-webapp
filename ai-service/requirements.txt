@@ -12,3 +12,4 @@ google-genai==1.16.1
 supabase==2.15.2
 psycopg[binary]==3.2.9
 pgvector==0.3.6
+cryptography==45.0.4

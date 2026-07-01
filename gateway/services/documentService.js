@@ -23,6 +23,7 @@ async function serializeDocument(document) {
     path: document.path,
     pdfUrl: await createSignedPdfUrl(document.path),
     layoutStrategy: document.layoutStrategy,
+    storageEncryption: document.storageEncryption || null,
     ingestionStatus: document.ingestionStatus,
     ingestionError: document.ingestionError,
     ingestionRequestedAt: document.ingestionRequestedAt,

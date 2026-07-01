@@ -16,7 +16,10 @@ class ArtifactRepository:
         artifact_dir = self.base_dir / document_id / run_id
         artifact_dir.mkdir(parents=True, exist_ok=True)
         artifact_path = artifact_dir / f"{artifact_type}.json"
-        artifact_path.write_text(json.dumps(self._serialize(payload), indent=2), encoding="utf-8")
+        artifact_path.write_text(
+            json.dumps({"artifactType": artifact_type, "redacted": True}, indent=2),
+            encoding="utf-8",
+        )
         return str(artifact_path)
 
     def load(self, artifact_ref: str):

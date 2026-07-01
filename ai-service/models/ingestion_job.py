@@ -12,6 +12,8 @@ class IngestionJob:
     file_name: str
     storage_path: str
     layout_strategy: str
+    file_iv: str | None = None
+    encrypted_session_dek: str | None = None
 
     @classmethod
     def from_payload(cls, payload: dict) -> "IngestionJob":
@@ -21,4 +23,6 @@ class IngestionJob:
             file_name=payload["fileName"],
             storage_path=payload["storagePath"],
             layout_strategy=normalize_layout_strategy(payload.get("layoutStrategy")),
+            file_iv=payload.get("fileIv"),
+            encrypted_session_dek=payload.get("encryptedSessionDek"),
         )

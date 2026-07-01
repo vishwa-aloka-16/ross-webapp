@@ -12,8 +12,14 @@ from schemas.ingestion import IngestionRequest, IngestionStatusResponse
 from schemas.query import Citation, QueryRequest, QueryResponse
 from services.answer_service import generate_rag_answer
 from services.cluster_debug_service import build_cluster_preview
+from services.crypto_service import (
+    decrypt_session_dek,
+    decrypt_text_content,
+    get_processing_public_key_pem,
+)
 from services.health_service import log_startup_health_summary
 from services.ingestion_service import get_job_status, queue_ingestion
+from services.processing_token_service import validate_processing_grant
 from services.retrieval_service import retrieve_context
 from services.summary_tree_service import build_summary_tree
 from services.summary_queue import summary_queue
@@ -67,6 +73,44 @@ def create_app() -> Flask:
         )
         return jsonify({"accepted": True, "documentId": payload.documentId}), 202
 
+    @api.get("/processing/public-key")
+    @require_internal_service_key
+    def processing_public_key():
+        return jsonify(
+            {
+                "algorithm": "RSA-OAEP-256",
+                "publicKeyPem": get_processing_public_key_pem(),
+            }
+        )
+
+    @api.post("/processing/ingestion/start")
+    @require_internal_service_key
+    def processing_ingestion_start():
+        try:
+            payload = IngestionRequest(**(request.get_json(silent=True) or {}))
+        except ValidationError as error:
+            return jsonify({"detail": error.errors()}), 400
+
+        try:
+            validate_processing_grant(
+                payload.processingGrant or "",
+                document_id=payload.documentId,
+                owner_id=payload.ownerId,
+            )
+        except PermissionError as error:
+            return jsonify({"detail": str(error)}), 401
+
+        queue_ingestion(
+            payload.documentId,
+            payload.ownerId,
+            payload.fileName,
+            payload.storagePath,
+            payload.layoutStrategy,
+            payload.fileIv,
+            payload.encryptedSessionDek,
+        )
+        return jsonify({"accepted": True, "documentId": payload.documentId}), 202
+
     @api.get("/ingestion/documents/<document_id>/status")
     @require_internal_service_key
     def ingestion_status(document_id: str):
@@ -93,6 +137,12 @@ def create_app() -> Flask:
                 question=payload.question,
             )
         )
+        encrypted_session_dek = body_value(request, "encryptedSessionDek")
+        if not encrypted_session_dek:
+            return jsonify({"error": "encryptedSessionDek is required for protected queries."}), 400
+        dek_bytes = decrypt_session_dek(encrypted_session_dek)
+        summary_nodes = decrypt_nodes(summary_nodes, dek_bytes)
+        leaf_nodes = decrypt_nodes(leaf_nodes, dek_bytes)
         answer = asyncio.run(
             generate_rag_answer(
                 question=payload.question,
@@ -167,3 +217,22 @@ def create_app() -> Flask:
 
     app.register_blueprint(api)
     return app
+
+
+def decrypt_nodes(nodes: list[dict], dek_bytes: bytes) -> list[dict]:
+    decrypted_nodes = []
+    for node in nodes:
+        decrypted_node = dict(node)
+        if decrypted_node.get("encrypted_content") and decrypted_node.get("content_iv"):
+            decrypted_node["content"] = decrypt_text_content(
+                decrypted_node["encrypted_content"],
+                decrypted_node["content_iv"],
+                dek_bytes,
+            )
+        decrypted_nodes.append(decrypted_node)
+    return decrypted_nodes
+
+
+def body_value(req, key: str):
+    body = req.get_json(silent=True) or {}
+    return body.get(key)

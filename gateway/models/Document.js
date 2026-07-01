@@ -48,6 +48,45 @@ const documentSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    storageEncryption: {
+      status: {
+        type: String,
+        enum: ['pending', 'encrypted'],
+        default: 'encrypted',
+      },
+      cryptoVersion: {
+        type: String,
+        default: null,
+      },
+      wrappedDek: {
+        type: String,
+        default: null,
+      },
+      fileIv: {
+        type: String,
+        default: null,
+      },
+      wrapIv: {
+        type: String,
+        default: null,
+      },
+      keyVersion: {
+        type: Number,
+        default: 1,
+      },
+      contentSha256: {
+        type: String,
+        default: null,
+      },
+      contentLength: {
+        type: Number,
+        default: null,
+      },
+      originalMimeType: {
+        type: String,
+        default: 'application/pdf',
+      },
+    },
   },
   {
     timestamps: true,

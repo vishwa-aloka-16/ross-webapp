@@ -51,6 +51,7 @@ export default function PdfViewerPanel({
     }
     return activePdfSrc
   }, [activeDocument, activePdfSrc])
+  const openPdfUrl = activePdfSrc || activeDocument?.pdfUrl || ''
 
   useEffect(() => {
     function updateWidth() {
@@ -167,10 +168,10 @@ export default function PdfViewerPanel({
             {activeDocument?.layoutStrategy ? (
               <span className="source-chip">{activeDocument.layoutStrategy}</span>
             ) : null}
-            {activeDocument?.pdfUrl && (
+            {openPdfUrl && (
               <a
                 className="workspace-download-link"
-                href={activeDocument.pdfUrl}
+                href={openPdfUrl}
                 target="_blank"
                 rel="noreferrer"
               >

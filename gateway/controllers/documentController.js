@@ -1,14 +1,41 @@
-const { randomUUID } = require('crypto')
+const crypto = require('crypto')
 const Document = require('../models/Document')
 const { supabase } = require('../config/supabase')
-const { storageBucket } = require('../config/env')
+const { storageBucket, internalServiceKey } = require('../config/env')
 const { serializeDocument } = require('../services/documentService')
 const {
-  enqueueIngestion,
+  fetchProcessingPublicKey: fetchAiProcessingPublicKey,
   queryRag,
   fetchSummaryTree,
   fetchClusterDebug,
+  startProtectedIngestion,
 } = require('../services/aiService')
+
+const PROCESSING_GRANT_TTL_SECONDS = 5 * 60
+
+function base64url(input) {
+  return Buffer.from(input)
+    .toString('base64')
+    .replaceAll('+', '-')
+    .replaceAll('/', '_')
+    .replaceAll(/=+$/g, '')
+}
+
+function createProcessingGrant(document, ownerId) {
+  const payload = {
+    documentId: document._id.toString(),
+    ownerId: ownerId.toString(),
+    purpose: 'processing',
+    exp: Math.floor(Date.now() / 1000) + PROCESSING_GRANT_TTL_SECONDS,
+  }
+  const encodedPayload = base64url(JSON.stringify(payload))
+  const signature = crypto
+    .createHmac('sha256', internalServiceKey || 'ross-internal')
+    .update(encodedPayload)
+    .digest()
+
+  return `${encodedPayload}.${base64url(signature)}`
+}
 
 async function listDocuments(req, res) {
   try {
@@ -29,6 +56,7 @@ async function listDocuments(req, res) {
 async function uploadDocuments(req, res) {
   const files = req.files || []
   const layoutStrategy = String(req.body?.layoutStrategy || 'TRANSACTIONAL').toUpperCase()
+  const cryptoMetadata = parseCryptoMetadata(req.body?.cryptoMetadata)
   const validLayoutStrategies = ['ADVERSARIAL', 'HIERARCHICAL', 'TRANSACTIONAL']
 
   if (!files.length) {
@@ -43,23 +71,24 @@ async function uploadDocuments(req, res) {
     })
   }
 
-  const invalidFile = files.find(
-    (file) =>
-      file.mimetype !== 'application/pdf' &&
-      !file.originalname.toLowerCase().endsWith('.pdf'),
-  )
-
-  if (invalidFile) {
+  if (!cryptoMetadata || cryptoMetadata.length !== files.length) {
     return res.status(400).json({
-      error: `Only PDF files are supported. Rejected: ${invalidFile.originalname}`,
+      error: 'Encrypted uploads require crypto metadata for every file.',
     })
   }
 
   try {
     const uploadedDocuments = await Promise.all(
-      files.map(async (file) => {
+      files.map(async (file, index) => {
+        const metadata = cryptoMetadata[index] || {}
+        const originalName = String(metadata.originalName || file.originalname || `document-${index + 1}.pdf`)
+        const originalMimeType = String(metadata.mimeType || 'application/pdf')
+        if (!metadata.wrappedDek || !metadata.fileIv || !metadata.wrapIv || !metadata.cryptoVersion) {
+          throw new Error(`Missing encryption metadata for ${originalName}.`)
+        }
+
         const safeName = file.originalname.replace(/[^a-zA-Z0-9._-]/g, '_')
-        const storagePath = `${req.user._id.toString()}/${Date.now()}-${randomUUID()}-${safeName}`
+        const storagePath = `${req.user._id.toString()}/${Date.now()}-${crypto.randomUUID()}-${safeName}.enc`
 
         const { error: uploadError } = await supabase.storage
           .from(storageBucket)
@@ -74,21 +103,24 @@ async function uploadDocuments(req, res) {
 
         const document = await Document.create({
           ownerId: req.user._id,
-          name: file.originalname,
-          size: file.size,
-          mimeType: file.mimetype || 'application/pdf',
+          name: originalName,
+          size: Number(metadata.contentLength || file.size),
+          mimeType: 'application/octet-stream',
           path: storagePath,
           layoutStrategy,
           ingestionStatus: 'pending',
           ingestionRequestedAt: new Date(),
-        })
-
-        enqueueIngestion(document, req.user._id).catch(async (error) => {
-          await Document.findByIdAndUpdate(document._id, {
-            ingestionStatus: 'failed',
-            ingestionError: error.message || 'Failed to enqueue ingestion.',
-            ingestionCompletedAt: new Date(),
-          })
+          storageEncryption: {
+            status: 'encrypted',
+            cryptoVersion: metadata.cryptoVersion,
+            wrappedDek: metadata.wrappedDek,
+            fileIv: metadata.fileIv,
+            wrapIv: metadata.wrapIv,
+            keyVersion: Number(metadata.keyVersion || 1),
+            contentSha256: metadata.contentSha256 || null,
+            contentLength: Number(metadata.contentLength || file.size),
+            originalMimeType,
+          },
         })
 
         return serializeDocument(document)
@@ -101,6 +133,86 @@ async function uploadDocuments(req, res) {
   } catch (error) {
     return res.status(500).json({
       error: error.message || 'Upload failed.',
+    })
+  }
+}
+
+async function getProcessingPublicKey(_req, res) {
+  try {
+    return res.json(await fetchAiProcessingPublicKey())
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message || 'Failed to load processing public key.',
+    })
+  }
+}
+
+async function requestProcessingGrant(req, res) {
+  try {
+    const document = await Document.findOne({
+      _id: req.params.documentId,
+      ownerId: req.user._id,
+    })
+
+    if (!document) {
+      return res.status(404).json({
+        error: 'Document not found.',
+      })
+    }
+
+    return res.json({
+      processingGrant: createProcessingGrant(document, req.user._id),
+      expiresInSeconds: PROCESSING_GRANT_TTL_SECONDS,
+    })
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message || 'Failed to create processing grant.',
+    })
+  }
+}
+
+async function startProcessing(req, res) {
+  const { encryptedSessionDek, processingGrant } = req.body || {}
+  if (!encryptedSessionDek || !processingGrant) {
+    return res.status(400).json({
+      error: 'encryptedSessionDek and processingGrant are required.',
+    })
+  }
+
+  try {
+    const document = await Document.findOne({
+      _id: req.params.documentId,
+      ownerId: req.user._id,
+    })
+
+    if (!document) {
+      return res.status(404).json({
+        error: 'Document not found.',
+      })
+    }
+
+    const result = await startProtectedIngestion({
+      documentId: document._id.toString(),
+      ownerId: req.user._id.toString(),
+      fileName: document.name,
+      storagePath: document.path,
+      layoutStrategy: document.layoutStrategy,
+      fileIv: document.storageEncryption?.fileIv,
+      encryptedSessionDek,
+      processingGrant,
+    })
+
+    await Document.findByIdAndUpdate(document._id, {
+      ingestionStatus: 'processing',
+      ingestionError: null,
+      ingestionRequestedAt: new Date(),
+      ingestionCompletedAt: null,
+    })
+
+    return res.status(202).json(result)
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message || 'Failed to start protected ingestion.',
     })
   }
 }
@@ -190,7 +302,7 @@ async function getDocumentStatus(req, res) {
 }
 
 async function ragQuery(req, res) {
-  const { documentId, question } = req.body
+  const { documentId, question, encryptedSessionDek } = req.body
 
   if (!documentId || !question) {
     return res.status(400).json({
@@ -221,6 +333,7 @@ async function ragQuery(req, res) {
       ownerId: req.user._id.toString(),
       documentId: document._id.toString(),
       question,
+      encryptedSessionDek,
     })
 
     return res.json(result)
@@ -307,10 +420,25 @@ async function getClusterDebug(req, res) {
 module.exports = {
   listDocuments,
   uploadDocuments,
+  getProcessingPublicKey,
+  requestProcessingGrant,
+  startProcessing,
   deleteDocument,
   updateIngestionStatus,
   getDocumentStatus,
   ragQuery,
   getSummaryTree,
   getClusterDebug,
+}
+
+function parseCryptoMetadata(rawValue) {
+  if (!rawValue) {
+    return null
+  }
+  try {
+    const parsed = JSON.parse(rawValue)
+    return Array.isArray(parsed) ? parsed : null
+  } catch (_error) {
+    return null
+  }
 }

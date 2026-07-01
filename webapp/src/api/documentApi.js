@@ -52,3 +52,25 @@ export function deleteDocument(documentId, token) {
     token,
   })
 }
+
+export function fetchProcessingPublicKey(token) {
+  return request('/api/documents/processing/public-key', { token })
+}
+
+export function createProcessingGrant(documentId, token) {
+  return request(`/api/documents/${documentId}/processing-grant`, {
+    method: 'POST',
+    token,
+  })
+}
+
+export function startProcessing({ documentId, token, encryptedSessionDek, processingGrant }) {
+  return request(`/api/documents/${documentId}/processing-start`, {
+    method: 'POST',
+    token,
+    body: JSON.stringify({
+      encryptedSessionDek,
+      processingGrant,
+    }),
+  })
+}

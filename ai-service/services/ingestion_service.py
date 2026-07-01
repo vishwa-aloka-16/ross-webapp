@@ -16,6 +16,8 @@ def queue_ingestion(
     file_name: str,
     storage_path: str,
     layout_strategy: str | None = None,
+    file_iv: str | None = None,
+    encrypted_session_dek: str | None = None,
 ) -> None:
     payload = {
         "documentId": document_id,
@@ -23,6 +25,8 @@ def queue_ingestion(
         "fileName": file_name,
         "storagePath": storage_path,
         "layoutStrategy": layout_strategy,
+        "fileIv": file_iv,
+        "encryptedSessionDek": encrypted_session_dek,
     }
     job = IngestionJob.from_payload(payload)
     job_statuses[document_id] = {"status": "pending", "error": None}

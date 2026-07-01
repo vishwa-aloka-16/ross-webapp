@@ -29,9 +29,25 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    passwordHash: {
+    authSalt: {
       type: String,
       required: true,
+    },
+    authVerifier: {
+      type: String,
+      required: true,
+    },
+    kdfAlgorithm: {
+      type: String,
+      default: 'PBKDF2-SHA256',
+    },
+    kdfParams: {
+      type: mongoose.Schema.Types.Mixed,
+      default: () => ({}),
+    },
+    keyVersion: {
+      type: Number,
+      default: 1,
     },
   },
   {

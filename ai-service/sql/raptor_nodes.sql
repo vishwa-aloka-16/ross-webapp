@@ -7,7 +7,10 @@ create table if not exists public.raptor_nodes (
   node_type text not null check (node_type in ('leaf', 'summary')),
   level integer not null default 0,
   parent_id uuid null,
-  content text not null,
+  content text null,
+  encrypted_content text null,
+  content_iv text null,
+  crypto_version text null,
   embedding vector(1536) not null,
   page_start integer null,
   page_end integer null,
@@ -16,6 +19,11 @@ create table if not exists public.raptor_nodes (
   metadata jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
+
+alter table public.raptor_nodes add column if not exists encrypted_content text null;
+alter table public.raptor_nodes add column if not exists content_iv text null;
+alter table public.raptor_nodes add column if not exists crypto_version text null;
+alter table public.raptor_nodes alter column content drop not null;
 
 create index if not exists idx_raptor_nodes_owner_id on public.raptor_nodes(owner_id);
 create index if not exists idx_raptor_nodes_document_id on public.raptor_nodes(document_id);
@@ -42,6 +50,9 @@ returns table (
   level integer,
   parent_id uuid,
   content text,
+  encrypted_content text,
+  content_iv text,
+  crypto_version text,
   page_start integer,
   page_end integer,
   chunk_index integer,
@@ -60,6 +71,9 @@ as $$
     node.level,
     node.parent_id,
     node.content,
+    node.encrypted_content,
+    node.content_iv,
+    node.crypto_version,
     node.page_start,
     node.page_end,
     node.chunk_index,

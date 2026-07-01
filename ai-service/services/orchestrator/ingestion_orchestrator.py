@@ -11,6 +11,7 @@ from services.repositories.artifact_repository import ArtifactRepository
 from services.repositories.checkpoint_repository import CheckpointRepository
 from services.repositories.document_status_repository import DocumentStatusRepository
 from services.repositories.node_repository import NodeRepository
+from services.crypto_service import decrypt_document_bytes, decrypt_session_dek, encrypt_text_content
 from services.storage.storage_download_service import StorageDownloadService
 from services.storage.temp_file_service import TempFileService
 from services.strategies.strategy_router import StrategyRouter
@@ -197,14 +198,29 @@ class IngestionOrchestrator:
         return result
 
     def download_pdf(self, job: IngestionJob) -> str:
-        pdf_bytes = self.storage_download_service.download_pdf(job.storage_path)
+        encrypted_bytes = self.storage_download_service.download_pdf(job.storage_path)
+        if not job.encrypted_session_dek or not job.file_iv:
+            raise RuntimeError("Protected ingestion requires encrypted_session_dek and file_iv.")
+        dek_bytes = decrypt_session_dek(job.encrypted_session_dek)
+        pdf_bytes = decrypt_document_bytes(encrypted_bytes, job.file_iv, dek_bytes)
         return self.temp_file_service.write_pdf(pdf_bytes)
 
     def store_result(self, job: IngestionJob, run_id: str, tree_nodes: list[dict]) -> dict:
+        if not job.encrypted_session_dek:
+            raise RuntimeError("Protected storage requires an encrypted session DEK.")
+        dek_bytes = decrypt_session_dek(job.encrypted_session_dek)
         for node in tree_nodes:
             node.setdefault("metadata", {})
             node["metadata"].setdefault("layout_strategy", job.layout_strategy)
             node["metadata"]["run_id"] = run_id
+            encrypted_content, content_iv, crypto_version = encrypt_text_content(
+                node.get("content", ""),
+                dek_bytes,
+            )
+            node["encrypted_content"] = encrypted_content
+            node["content_iv"] = content_iv
+            node["crypto_version"] = crypto_version
+            node["content"] = None
         self.node_repository.replace_document_nodes(document_id=job.document_id, nodes=tree_nodes)
         return {
             "documentId": job.document_id,

@@ -2,15 +2,29 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import RossAuth from './RossAuth'
 import RossLandingPage from './RossLandingPage'
 import './App.css'
-import { fetchCurrentUser, login } from './api/authApi'
+import { fetchCurrentUser, loginFinish, loginInit, register as registerRequest } from './api/authApi'
 import {
+  createProcessingGrant,
   deleteDocument as deleteDocumentRequest,
   fetchDocuments,
   fetchDocumentStatus,
+  fetchProcessingPublicKey,
+  startProcessing,
   uploadDocuments,
 } from './api/documentApi'
 import { fetchNodeEvidence, fetchSummaryTree } from './api/summaryApi'
 import WorkspaceShell from './components/workspace/WorkspaceShell'
+import {
+  createRegistrationMaterial,
+  createLoginMaterial,
+  createObjectUrl,
+  decryptArtifactText,
+  decryptPdfBuffer,
+  encryptDocument,
+  encryptSessionDekForProcessing,
+  revokeObjectUrl,
+  unwrapDocumentKey,
+} from './utils/crypto'
 
 const TOKEN_STORAGE_KEY = 'ross.gateway.token'
 
@@ -88,17 +102,6 @@ function buildPdfSource(title) {
   return `data:application/pdf;base64,${btoa(pdf)}`
 }
 
-function buildPdfUrlWithPage(pdfUrl, page) {
-  if (!pdfUrl) {
-    return ''
-  }
-  if (!page) {
-    return pdfUrl
-  }
-  const base = pdfUrl.split('#')[0]
-  return `${base}#page=${page}`
-}
-
 function findNodeById(node, nodeId) {
   if (!node) {
     return null
@@ -115,6 +118,40 @@ function findNodeById(node, nodeId) {
   return null
 }
 
+function titleFromContent(content = '') {
+  const firstLine = content
+    .split('\n')
+    .map((line) => line.trim())
+    .find(Boolean)
+  return firstLine || 'Summary'
+}
+
+async function decryptSummaryNode(node, dekBytes) {
+  if (!node) {
+    return null
+  }
+
+  const content =
+    node.encryptedContent && node.contentIv
+      ? await decryptArtifactText(node.encryptedContent, node.contentIv, dekBytes)
+      : node.content || ''
+
+  const children = []
+  for (const child of node.children || []) {
+    children.push(await decryptSummaryNode(child, dekBytes))
+  }
+
+  return {
+    ...node,
+    content,
+    title:
+      node.title && node.title !== 'Summary' && node.title !== 'Document Summary'
+        ? node.title
+        : titleFromContent(content),
+    children,
+  }
+}
+
 export default function App() {
   const [entryScreen, setEntryScreen] = useState('landing')
   const [authMode, setAuthMode] = useState('login')
@@ -123,6 +160,7 @@ export default function App() {
   const [authError, setAuthError] = useState('')
   const [token, setToken] = useState(() => window.localStorage.getItem(TOKEN_STORAGE_KEY) || '')
   const [user, setUser] = useState(null)
+  const [cryptoSession, setCryptoSession] = useState(null)
 
   const [documents, setDocuments] = useState([])
   const [documentsLoading, setDocumentsLoading] = useState(false)
@@ -149,9 +187,11 @@ export default function App() {
   const [summaryExplorerExpanded, setSummaryExplorerExpanded] = useState(false)
   const [openMenuId, setOpenMenuId] = useState('')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [decryptedPdfUrl, setDecryptedPdfUrl] = useState('')
 
   const fileInputRef = useRef(null)
-  const restoringSession = Boolean(token) && !user
+  const documentKeysRef = useRef(new Map())
+  const restoringSession = Boolean(token) && !user && Boolean(cryptoSession?.wrappingKey)
 
   const filteredDocuments = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase()
@@ -164,10 +204,7 @@ export default function App() {
     null
 
   const activePdfTitle = withPdf(activeDocument?.name || 'Document')
-  const activePdfSrc =
-    activeDocument?.pdfUrl && activeDocument.mimeType === 'application/pdf'
-      ? buildPdfUrlWithPage(activeDocument.pdfUrl, activePdfPage)
-      : buildPdfSource(activePdfTitle)
+  const activePdfSrc = decryptedPdfUrl || buildPdfSource(activePdfTitle)
 
   const trackedIngestionDocuments = ingestionTracker.documentIds
     .map((id) => documents.find((document) => document.id === id))
@@ -198,6 +235,15 @@ export default function App() {
       return
     }
 
+    if (!cryptoSession?.wrappingKey) {
+      window.localStorage.removeItem(TOKEN_STORAGE_KEY)
+      setToken('')
+      setUser(null)
+      setDocuments([])
+      setAuthError('Please sign in again to restore your encryption session.')
+      return
+    }
+
     let cancelled = false
 
     async function bootstrap() {
@@ -220,7 +266,7 @@ export default function App() {
     return () => {
       cancelled = true
     }
-  }, [token])
+  }, [cryptoSession, token])
 
   useEffect(() => {
     if (!token || !user) {
@@ -263,6 +309,13 @@ export default function App() {
       cancelled = true
     }
   }, [token, user])
+
+  useEffect(
+    () => () => {
+      revokeObjectUrl(decryptedPdfUrl)
+    },
+    [decryptedPdfUrl],
+  )
 
   useEffect(() => {
     if (!token) {
@@ -311,6 +364,51 @@ export default function App() {
   }, [documents, token])
 
   useEffect(() => {
+    let cancelled = false
+
+    async function loadDecryptedPdf() {
+      if (!activeDocument?.pdfUrl || !activeDocument?.storageEncryption?.fileIv || !cryptoSession?.wrappingKey) {
+        setDecryptedPdfUrl('')
+        return
+      }
+
+      try {
+        let dekBytes = documentKeysRef.current.get(activeDocument.id)
+        if (!dekBytes) {
+          dekBytes = await unwrapDocumentKey(activeDocument.storageEncryption, cryptoSession.wrappingKey)
+          documentKeysRef.current.set(activeDocument.id, dekBytes)
+        }
+
+        const response = await fetch(activeDocument.pdfUrl)
+        const encryptedBuffer = await response.arrayBuffer()
+        const decryptedBuffer = await decryptPdfBuffer(
+          encryptedBuffer,
+          activeDocument.storageEncryption.fileIv,
+          dekBytes,
+        )
+        if (cancelled) {
+          return
+        }
+        setDecryptedPdfUrl((current) => {
+          revokeObjectUrl(current)
+          return createObjectUrl(decryptedBuffer, activeDocument.storageEncryption.originalMimeType || 'application/pdf')
+        })
+      } catch (error) {
+        if (!cancelled) {
+          setDecryptedPdfUrl('')
+          setDocumentsError((current) => current || error.message || 'Failed to decrypt PDF.')
+        }
+      }
+    }
+
+    loadDecryptedPdf()
+
+    return () => {
+      cancelled = true
+    }
+  }, [activeDocument?.id, activeDocument?.pdfUrl, activeDocument?.storageEncryption, cryptoSession])
+
+  useEffect(() => {
     setSelectedEvidence([])
     setSelectedSummaryNode(null)
     setHighlightBlocks([])
@@ -334,12 +432,18 @@ export default function App() {
     async function loadSummaryTree() {
       setSummaryLoading(true)
       try {
+        let dekBytes = documentKeysRef.current.get(activeDocument.id)
+        if (!dekBytes) {
+          dekBytes = await unwrapDocumentKey(activeDocument.storageEncryption, cryptoSession.wrappingKey)
+          documentKeysRef.current.set(activeDocument.id, dekBytes)
+        }
         const payload = await fetchSummaryTree(activeDocument.id, token)
+        const decryptedRoot = await decryptSummaryNode(payload?.root || null, dekBytes)
         if (cancelled) {
           return
         }
-        setSummaryTree(payload)
-        setSelectedSummaryNode(payload?.root || null)
+        setSummaryTree(payload ? { ...payload, root: decryptedRoot } : null)
+        setSelectedSummaryNode(decryptedRoot || null)
       } catch (error) {
         if (!cancelled) {
           setSummaryTree(null)
@@ -357,7 +461,7 @@ export default function App() {
     return () => {
       cancelled = true
     }
-  }, [activeDocument?.id, activeDocument?.ingestionStatus, token])
+  }, [activeDocument?.id, activeDocument?.ingestionStatus, cryptoSession, token])
 
   async function handleAuthSubmit(event) {
     event.preventDefault()
@@ -365,8 +469,73 @@ export default function App() {
     setAuthError('')
 
     try {
-      const payload = await login({ email: authForm.email, password: authForm.password })
+      const initPayload = await loginInit({ email: authForm.email })
+      const loginMaterial = await createLoginMaterial({
+        password: authForm.password,
+        email: authForm.email,
+        challengeId: initPayload.challengeId,
+        serverNonce: initPayload.serverNonce,
+        authSalt: initPayload.authSalt,
+        kdfParams: initPayload.kdfParams,
+        keyVersion: initPayload.keyVersion,
+      })
+      const payload = await loginFinish({
+        email: authForm.email,
+        challengeId: initPayload.challengeId,
+        clientNonce: loginMaterial.clientNonce,
+        clientProof: loginMaterial.clientProof,
+      })
 
+      if (payload.serverProof !== loginMaterial.expectedServerProof) {
+        throw new Error('Server proof verification failed.')
+      }
+
+      setCryptoSession({
+        wrappingKey: loginMaterial.wrappingKey,
+        keyVersion: loginMaterial.keyVersion,
+      })
+      window.localStorage.setItem(TOKEN_STORAGE_KEY, payload.token)
+      setToken(payload.token)
+      setUser(payload.user)
+      setAuthForm(EMPTY_AUTH_FORM)
+    } catch (error) {
+      setAuthError(error.message)
+    } finally {
+      setAuthLoading(false)
+    }
+  }
+
+  async function handleRegisterSubmit(event) {
+    event.preventDefault()
+    setAuthLoading(true)
+    setAuthError('')
+
+    try {
+      if (!authForm.firstName || !authForm.lastName || !authForm.email || !authForm.firm || !authForm.password) {
+        throw new Error('First name, last name, work email, firm, and password are required.')
+      }
+
+      if (authForm.password.length < 10) {
+        throw new Error('Password must be at least 10 characters long.')
+      }
+
+      const registrationMaterial = await createRegistrationMaterial(authForm.password)
+      const payload = await registerRequest({
+        firstName: authForm.firstName,
+        lastName: authForm.lastName,
+        email: authForm.email,
+        firm: authForm.firm,
+        authSalt: registrationMaterial.authSalt,
+        authVerifier: registrationMaterial.authVerifier,
+        kdfAlgorithm: registrationMaterial.kdfAlgorithm,
+        kdfParams: registrationMaterial.kdfParams,
+        keyVersion: registrationMaterial.keyVersion,
+      })
+
+      setCryptoSession({
+        wrappingKey: registrationMaterial.wrappingKey,
+        keyVersion: registrationMaterial.keyVersion,
+      })
       window.localStorage.setItem(TOKEN_STORAGE_KEY, payload.token)
       setToken(payload.token)
       setUser(payload.user)
@@ -380,13 +549,17 @@ export default function App() {
 
   function handleLogout() {
     window.localStorage.removeItem(TOKEN_STORAGE_KEY)
+    revokeObjectUrl(decryptedPdfUrl)
     setToken('')
     setUser(null)
+    setCryptoSession(null)
     setDocuments([])
     setActiveDocumentId('')
     setSummaryTree(null)
     setSelectedSummaryNode(null)
     setSelectedEvidence([])
+    setDecryptedPdfUrl('')
+    documentKeysRef.current = new Map()
   }
 
   function handleDemoRequestSubmit(event) {
@@ -492,7 +665,7 @@ export default function App() {
   }
 
   async function handleInitializeAnalytics() {
-    if (!pendingUploadFiles.length || !token) {
+    if (!pendingUploadFiles.length || !token || !cryptoSession?.wrappingKey) {
       return
     }
 
@@ -501,8 +674,10 @@ export default function App() {
     setUploadModalError('')
 
     try {
+      const processingKeyPayload = await fetchProcessingPublicKey(token)
+      const encryptedUploads = []
       const formData = new FormData()
-      pendingUploadFiles.forEach((entry) => {
+      for (const entry of pendingUploadFiles) {
         const normalizedName = withPdf((entry.displayName || '').trim() || entry.file.name)
         const uploadFile =
           normalizedName === entry.file.name
@@ -511,12 +686,57 @@ export default function App() {
                 type: entry.file.type || 'application/pdf',
                 lastModified: entry.file.lastModified,
               })
-
-        formData.append('documents', uploadFile)
-      })
+        const encrypted = await encryptDocument(uploadFile, cryptoSession.wrappingKey, cryptoSession.keyVersion)
+        encryptedUploads.push({
+          originalName: normalizedName,
+          ...encrypted,
+        })
+        formData.append(
+          'documents',
+          new File([encrypted.encryptedFileBlob], `${normalizedName}.enc`, {
+            type: 'application/octet-stream',
+          }),
+        )
+      }
+      formData.append(
+        'cryptoMetadata',
+        JSON.stringify(
+          encryptedUploads.map((entry) => ({
+            originalName: entry.originalName,
+            wrappedDek: entry.wrappedDek,
+            fileIv: entry.fileIv,
+            wrapIv: entry.wrapIv,
+            cryptoVersion: entry.cryptoVersion,
+            contentLength: entry.contentLength,
+            contentSha256: entry.contentSha256,
+            mimeType: entry.mimeType,
+            keyVersion: entry.keyVersion,
+          })),
+        ),
+      )
       formData.append('layoutStrategy', selectedLayoutStrategy)
 
       const payload = await uploadDocuments({ token, formData })
+      await Promise.all(
+        (payload.documents || []).map(async (document, index) => {
+          const encrypted = encryptedUploads[index]
+          if (!encrypted) {
+            return
+          }
+          documentKeysRef.current.set(document.id, encrypted.dekBytes)
+          const grantPayload = await createProcessingGrant(document.id, token)
+          const encryptedSessionDek = await encryptSessionDekForProcessing(
+            encrypted.dekBase64,
+            processingKeyPayload.publicKeyPem,
+          )
+          await startProcessing({
+            documentId: document.id,
+            token,
+            encryptedSessionDek,
+            processingGrant: grantPayload.processingGrant,
+          })
+        }),
+      )
       setDocuments((current) => [...payload.documents, ...current])
       setActiveDocumentId(payload.documents?.[0]?.id || '')
       setIngestionTracker({
@@ -559,6 +779,7 @@ export default function App() {
 
     try {
       await deleteDocumentRequest(documentId, token)
+      documentKeysRef.current.delete(documentId)
       const remainingDocuments = documents.filter((document) => document.id !== documentId)
       setDocuments(remainingDocuments)
       if (activeDocumentId === documentId) {
@@ -596,7 +817,7 @@ export default function App() {
     try {
       const fallbackNode = summaryTree?.root ? findNodeById(summaryTree.root, node.id) : node
       const payload = await fetchNodeEvidence(activeDocument.id, node.id, token, fallbackNode)
-        setSelectedEvidence(payload.sources || [])
+      setSelectedEvidence(payload.sources || [])
       setHighlightBlocks(
         (payload.sources || [])
           .filter((source) => source.bbox)
@@ -676,6 +897,7 @@ export default function App() {
         }}
         onFieldChange={(field, value) => setAuthForm((current) => ({ ...current, [field]: value }))}
         onSubmit={handleAuthSubmit}
+        onRegisterSubmit={handleRegisterSubmit}
         onDemoRequestSubmit={handleDemoRequestSubmit}
         onResetPasswordSubmit={handleResetPasswordSubmit}
       />

@@ -512,7 +512,8 @@ function LoginForm({
   restoringSession,
   onFieldChange,
   onSubmit,
-  onSwitch,
+  onDemoSwitch,
+  onRegisterSwitch,
   onForgotPassword,
 }) {
   const [remember, setRemember] = useState(false)
@@ -658,7 +659,153 @@ function LoginForm({
       </div>
 
       <p style={{ textAlign: 'center', fontSize: '13px', color: GRAY[400], margin: 0 }}>
+        New to ROSS?{' '}
+        <button
+          type="button"
+          onClick={onRegisterSwitch}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontFamily: 'inherit',
+            fontSize: '13px',
+            fontWeight: 500,
+            color: GRAY[900],
+            cursor: 'pointer',
+            padding: 0,
+          }}
+        >
+          {'Create an account ->'}
+        </button>
+      </p>
+
+      <p style={{ textAlign: 'center', fontSize: '13px', color: GRAY[400], margin: '10px 0 0' }}>
         Need a guided walkthrough?{' '}
+        <button
+          type="button"
+          onClick={onDemoSwitch}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontFamily: 'inherit',
+            fontSize: '13px',
+            fontWeight: 500,
+            color: GRAY[900],
+            cursor: 'pointer',
+            padding: 0,
+          }}
+        >
+          {'Request a demo ->'}
+        </button>
+      </p>
+    </div>
+  )
+}
+
+function RegisterForm({
+  form,
+  error,
+  loading,
+  onFieldChange,
+  onSubmit,
+  onSwitch,
+}) {
+  return (
+    <div
+      style={{
+        flex: 1,
+        padding: '40px 52px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        maxWidth: '420px',
+      }}
+    >
+      <p style={{ fontSize: '22px', fontWeight: 500, color: GRAY[900], margin: '0 0 6px' }}>
+        Create your account
+      </p>
+      <p style={{ fontSize: '13px', color: GRAY[400], margin: '0 0 28px' }}>
+        Set up your ROSS workspace with a master password that stays client-derived.
+      </p>
+
+      <form onSubmit={onSubmit}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <InputField
+            label="First name"
+            placeholder="Jane"
+            value={form.firstName}
+            onChange={(event) => onFieldChange('firstName', event.target.value)}
+          />
+          <InputField
+            label="Last name"
+            placeholder="Smith"
+            value={form.lastName}
+            onChange={(event) => onFieldChange('lastName', event.target.value)}
+          />
+        </div>
+
+        <InputField
+          label="Work email"
+          type="email"
+          placeholder="you@lawfirm.com"
+          value={form.email}
+          onChange={(event) => onFieldChange('email', event.target.value)}
+          icon={
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          }
+        />
+
+        <InputField
+          label="Firm or organisation"
+          placeholder="Smith & Partners LLP"
+          value={form.firm}
+          onChange={(event) => onFieldChange('firm', event.target.value)}
+          icon={
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3" />
+            </svg>
+          }
+        />
+
+        <PasswordInput
+          label="Master password"
+          placeholder="Use at least 10 characters"
+          value={form.password}
+          onChange={(event) => onFieldChange('password', event.target.value)}
+        />
+
+        <div
+          style={{
+            marginBottom: '24px',
+            borderRadius: '12px',
+            background: GRAY[50],
+            border: `1px solid ${GRAY[100]}`,
+            padding: '12px 14px',
+          }}
+        >
+          <p style={{ margin: 0, fontSize: '12px', color: GRAY[500], lineHeight: 1.6 }}>
+            Your password is used in the browser to derive secure keys for your workspace.
+          </p>
+        </div>
+
+        {error && <p className="error-banner">{error}</p>}
+
+        <PrimaryButton loading={loading} disabled={loading}>
+          {!loading && (
+            <>
+              Create account
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </>
+          )}
+        </PrimaryButton>
+      </form>
+
+      <p style={{ textAlign: 'center', fontSize: '13px', color: GRAY[400], margin: '20px 0 0' }}>
+        Already have an account?{' '}
         <button
           type="button"
           onClick={onSwitch}
@@ -673,7 +820,7 @@ function LoginForm({
             padding: 0,
           }}
         >
-          {'Request a demo ->'}
+          {'Sign in ->'}
         </button>
       </p>
     </div>
@@ -1014,6 +1161,7 @@ export default function RossAuth(props) {
     onModeChange,
     onFieldChange,
     onSubmit,
+    onRegisterSubmit,
     onDemoRequestSubmit,
     onResetPasswordSubmit,
   } = props
@@ -1121,8 +1269,18 @@ export default function RossAuth(props) {
                   restoringSession={restoringSession}
                   onFieldChange={onFieldChange}
                   onSubmit={onSubmit}
-                  onSwitch={() => onModeChange('demo')}
+                  onDemoSwitch={() => onModeChange('demo')}
+                  onRegisterSwitch={() => onModeChange('register')}
                   onForgotPassword={() => onModeChange('reset')}
+                />
+              ) : mode === 'register' ? (
+                <RegisterForm
+                  form={form}
+                  error={error}
+                  loading={loading}
+                  onFieldChange={onFieldChange}
+                  onSubmit={onRegisterSubmit}
+                  onSwitch={() => onModeChange('login')}
                 />
               ) : mode === 'reset' ? (
                 <ResetPasswordForm

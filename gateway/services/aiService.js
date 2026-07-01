@@ -45,13 +45,45 @@ async function enqueueIngestion(document, ownerId) {
   })
 }
 
-async function queryRag({ ownerId, documentId, question }) {
+async function fetchProcessingPublicKey() {
+  return requestAiService('/processing/public-key', {
+    method: 'GET',
+  })
+}
+
+async function startProtectedIngestion({
+  documentId,
+  ownerId,
+  fileName,
+  storagePath,
+  layoutStrategy,
+  fileIv,
+  encryptedSessionDek,
+  processingGrant,
+}) {
+  return requestAiService('/processing/ingestion/start', {
+    method: 'POST',
+    body: JSON.stringify({
+      documentId,
+      ownerId,
+      fileName,
+      storagePath,
+      layoutStrategy,
+      fileIv,
+      encryptedSessionDek,
+      processingGrant,
+    }),
+  })
+}
+
+async function queryRag({ ownerId, documentId, question, encryptedSessionDek }) {
   return requestAiService('/rag/query', {
     method: 'POST',
     body: JSON.stringify({
       ownerId,
       documentId,
       question,
+      encryptedSessionDek,
     }),
   })
 }
@@ -80,6 +112,8 @@ async function fetchClusterDebug({ ownerId, documentId, layoutStrategy, targetCl
 
 module.exports = {
   enqueueIngestion,
+  fetchProcessingPublicKey,
+  startProtectedIngestion,
   queryRag,
   fetchSummaryTree,
   fetchClusterDebug,

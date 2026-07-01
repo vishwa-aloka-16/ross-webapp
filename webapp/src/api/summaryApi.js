@@ -80,8 +80,11 @@ function normalizeNode(node, fallbackType = 'summary') {
       metadata.clauseTitle ||
       metadata.sectionKey ||
       metadata.sectionParentKey ||
-      toTitleFromContent(node.content || ''),
+      toTitleFromContent(node.content || metadata.sectionKey || metadata.clauseTitle || ''),
     content: node.content || '',
+    encryptedContent: node.encryptedContent ?? node.encrypted_content ?? null,
+    contentIv: node.contentIv ?? node.content_iv ?? null,
+    cryptoVersion: node.cryptoVersion ?? node.crypto_version ?? null,
     pageStart: node.pageStart ?? node.page_start ?? null,
     pageEnd: node.pageEnd ?? node.page_end ?? null,
     sourceCount: node.sourceCount ?? node.source_count ?? null,
@@ -172,6 +175,8 @@ function collectLeafSources(node, bucket = []) {
       pageStart: node.pageStart,
       pageEnd: node.pageEnd,
       content: node.content,
+      encryptedContent: node.encryptedContent || null,
+      contentIv: node.contentIv || null,
       bbox: node.metadata?.bbox || null,
       metadata: node.metadata || {},
     })

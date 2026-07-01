@@ -7,6 +7,9 @@ class IngestionRequest(BaseModel):
     fileName: str
     storagePath: str
     layoutStrategy: str = "TRANSACTIONAL"
+    fileIv: str | None = None
+    encryptedSessionDek: str | None = None
+    processingGrant: str | None = None
 
 
 class IngestionStatusResponse(BaseModel):

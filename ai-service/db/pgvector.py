@@ -56,12 +56,12 @@ def insert_nodes(nodes: list[dict]) -> None:
             cur.executemany(
                 """
                 insert into public.raptor_nodes
-                  (id, document_id, owner_id, node_type, level, parent_id, content, embedding,
-                   page_start, page_end, chunk_index, cluster_id, metadata)
+                  (id, document_id, owner_id, node_type, level, parent_id, content, encrypted_content,
+                   content_iv, crypto_version, embedding, page_start, page_end, chunk_index, cluster_id, metadata)
                 values
                   (%(id)s, %(document_id)s, %(owner_id)s, %(node_type)s, %(level)s, %(parent_id)s,
-                   %(content)s, %(embedding)s, %(page_start)s, %(page_end)s, %(chunk_index)s,
-                   %(cluster_id)s, %(metadata)s)
+                   %(content)s, %(encrypted_content)s, %(content_iv)s, %(crypto_version)s, %(embedding)s,
+                   %(page_start)s, %(page_end)s, %(chunk_index)s, %(cluster_id)s, %(metadata)s)
                 """,
                 prepared_nodes,
             )
@@ -107,6 +107,9 @@ def fetch_document_nodes(*, owner_id: str, document_id: str) -> list[dict]:
                   level,
                   parent_id,
                   content,
+                  encrypted_content,
+                  content_iv,
+                  crypto_version,
                   page_start,
                   page_end,
                   chunk_index,
@@ -142,6 +145,9 @@ def fetch_document_leaf_nodes_with_embeddings(*, owner_id: str, document_id: str
                   level,
                   parent_id,
                   content,
+                  encrypted_content,
+                  content_iv,
+                  crypto_version,
                   embedding,
                   page_start,
                   page_end,
